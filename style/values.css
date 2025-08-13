@@ -1,0 +1,39 @@
+:root {
+    /* Theme colors */
+    --bs-primary: #0B4F6C;
+    --bs-secondary: #00C7C7;
+    --bs-success: #199F28;
+    --bs-info: #F5F0F6;
+    /* 
+    --bs-warning; 
+    --bs-danger; 
+    */
+    --bs-light: #F5F0F6;
+    --bs-dark: #222222;
+
+    /* RGB versions for opacity use */
+    --bs-primary-rgb: 11, 79, 108;
+    --bs-secondary-rgb: 0, 199, 199;
+    --bs-success-rgb: 25, 159, 40;
+    --bs-info-rgb: 245, 240, 246;
+    /*
+    --bs-warning-rgb;
+    --bs-danger-rgb;
+    */
+    --bs-light-rgb: 245, 240, 246;
+    --bs-dark-rgb: 34, 34, 34;
+
+    /* Body text and background */
+    --bs-body-color-rgb: --bs-dark-rgb;
+    --bs-body-bg-rgb: --bs-light-rgb;
+    
+    /* display values */
+    .display-1,
+    .display-2,
+    .display-3,
+    .display-4,
+    .display-5,
+    .display-6 {
+        font-weight: 400 !important;
+    }
+}
