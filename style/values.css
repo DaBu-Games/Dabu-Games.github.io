@@ -7,8 +7,8 @@
     /* 
     --bs-warning; 
     --bs-danger; 
+    --bs-light:
     */
-    --bs-light: #F5F0F6;
     --bs-dark: #222222;
 
     /* RGB versions for opacity use */
@@ -19,13 +19,14 @@
     /*
     --bs-warning-rgb;
     --bs-danger-rgb;
+    --bs-light-rgb:
     */
-    --bs-light-rgb: 245, 240, 246;
     --bs-dark-rgb: 34, 34, 34;
 
-    /* Body text and background */
+    /* Body text and background 
+       --bs-body-bg-rgb
+    */
     --bs-body-color-rgb: --bs-dark-rgb;
-    --bs-body-bg-rgb: --bs-light-rgb;
     
     /* display values */
     .display-1,

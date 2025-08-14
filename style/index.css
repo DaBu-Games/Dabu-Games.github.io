@@ -7,6 +7,56 @@
     font-size: 40px;
 }
 
+body{
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.header{
+    background-image: url("../media/background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    position: relative;
+    z-index: -3;
+}
+
+.header {
+    position: relative; /* so absolute positioning works inside */
+}
+
+.cloudsL {
+    position: absolute;
+    bottom: 0;
+    left: -500px; /* start position */
+    width: 58%;
+    z-index: -2;
+    animation: cloudLeftIn 2s ease-out forwards;
+    pointer-events: none;
+}
+
+.cloudsR {
+    position: absolute;
+    bottom: 0;
+    right: -500px; /* start position */
+    width: 51%;
+    z-index: -1;
+    animation: cloudRightIn 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes cloudLeftIn {
+    from { left: -500px; }
+    to   { left: 0; }
+}
+
+@keyframes cloudRightIn {
+    from { right: -500px; }
+    to   { right: 0; }
+}
+
+
+
 @media (max-width: 992px) {
     .icon i {
         font-size: 30px; /* smaller size on smaller screens */
