@@ -1,24 +1,24 @@
-.icon{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    font-size: 40px;
+@font-face {
+    font-family: "QuikSand"; /* This is the name you'll use in CSS */
+    src: url("../fonts/quicksand-font/QuicksandboldRegular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 body{
     margin: 0;
+    width: 100%;
     overflow-x: hidden;
+    font-family: 'QuikSand', sans-serif;
 }
 
 .header{
-    background-image: url("../media/background.svg");
+    background-image: url("../media/header/background.svg");
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     position: relative;
-    z-index: -3;
+    z-index: 0;
 }
 
 .header {
@@ -55,21 +55,82 @@ body{
     to   { right: 0; }
 }
 
-
-
-@media (max-width: 992px) {
-    .icon i {
-        font-size: 30px; /* smaller size on smaller screens */
-        height: 40px;
-        width: 40px;
-    }
+.gradient-border{
+    display: inline-block;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #00C7C7,#0B4F6C);
+    padding: 5px;
 }
 
 .logo{
     width: 75px;
     height: 75px;
+    border-radius: 50%;
 }
 
 .profile-pic{
-    width: 25vw;
+    width: 24vw;
+    display: block;
+    border-radius: 50%;
+}
+
+.icon{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    font-size: 50px;
+}
+
+.icon-transition{
+    transition: color 0.5s ease-in-out;
+}
+
+.icon:hover i{
+    color: #F5F0F6;
+}
+
+@media (max-width: 992px) {
+    .icon i {
+        font-size: 40px;
+    }
+}
+
+/* navigation wheel */
+
+.nav-wheel{ 
+    display: none;
+    background-color: rgba(34, 34, 34, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+.nav-wheel.active{
+    display: flex;
+}
+
+.nav-wheel svg{
+    width: 60vw;
+    height: 60vh;
+}
+
+.nav-button{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.nav-button svg{
+    width: 60px;
+    height: 60px;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
 }

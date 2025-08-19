@@ -2,7 +2,7 @@
     /* Theme colors */
     --bs-primary: #0B4F6C;
     --bs-secondary: #00C7C7;
-    --bs-success: #199F28;
+    --bs-success: #E42548;
     --bs-info: #F5F0F6;
     /* 
     --bs-warning; 
@@ -14,7 +14,7 @@
     /* RGB versions for opacity use */
     --bs-primary-rgb: 11, 79, 108;
     --bs-secondary-rgb: 0, 199, 199;
-    --bs-success-rgb: 25, 159, 40;
+    --bs-success-rgb: 228, 37, 72;
     --bs-info-rgb: 245, 240, 246;
     /*
     --bs-warning-rgb;
