@@ -16,10 +16,10 @@ let arrow;
 let infoText;
 let currentPage
 let selectedPage;
-
 document.addEventListener("DOMContentLoaded", () => {
     currentPage = document.body.dataset.page;
     const wheel = document.getElementById('nav-wheel');
+    const bodyFont = window.getComputedStyle(document.body).fontFamily;
 
     fetch("../media/wheel/wheel.svg")
         .then(res => res.text())
@@ -32,23 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
             arrow.style.display = 'none';
             
             infoText = document.getElementById('info-text');
+            infoText.style.fontFamily = bodyFont;
             infoText.innerHTML = '';
 
             Object.keys(pages).forEach(id => {
 
                 if(id === currentPage) {
                     let icon = document.getElementById(`${id}-icon`);
+                    let bg = document.getElementById(`${id}-bg`);
+                    
                     icon.style.fill = '#222222';
+                    bg.style.fill = '#222222';
                     icon.style.stroke = '#E42548';
-                    return;
                 }
                 
                 const el = document.getElementById(id);
-                const bg = document.getElementById(`${id}-bg`);
-                if (el && bg) {
-                    
-                    //el.style.cursor = 'pointer'; // pointer on hover
-
+                if (el) {
                     el.addEventListener("pointerenter", (e) => {
                         activateItem(id)
                     });
@@ -68,6 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(svg => {
             
             button.innerHTML = svg;
+            
+            let buttonText = document.getElementById('button-text');
+            buttonText.style.fontFamily = bodyFont;
             
             let longPressTimeout;
             let hitbox = document.getElementById('hitbox');
@@ -121,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     matchedId = parentId;
                 }
 
-                if (matchedId && matchedId !== oldEl && matchedId !== currentPage) {
+                if (matchedId && matchedId !== oldEl) {
                     if(oldEl) {
                         deactivateItem(oldEl);
                     }
@@ -174,24 +176,27 @@ document.addEventListener("DOMContentLoaded", () => {
             wheel.classList.remove("active");
         } else {
             wheel.classList.add("active");
-            activateItem(currentPage);
         }
     }
     
     function activateItem(id)
     {
         let bg = document.getElementById(`${id}-bg`);
-        bg.style.stroke = "#E42548";
-        bg.style.strokeWidth = "0.5";
+        
+        if(id !== currentPage) 
+        {
+            bg.style.stroke = "#E42548";
+            bg.style.strokeWidth = "0.5";
+            selectedPage = id;
+        }
+        else
+        {
+            
+        }
         
         rotateArrow(angles[id]);
         
-        if(selectedPage === currentPage) {
-            deactivateItem(currentPage);
-        }
-        
-        selectedPage = id;
-        infoText.innerHTML = `${selectedPage}`;
+        infoText.innerHTML = `${id}`;
 
         if(arrow.style.display === "none")
         {
@@ -206,6 +211,10 @@ document.addEventListener("DOMContentLoaded", () => {
         bg.style.stroke = "#000000";
         bg.style.strokeWidth = "0.3";
         arrow.style.display = "none";
+        
+        if(id === currentPage){
+            
+        }
         
         selectedPage = '';
         infoText.innerHTML = '';
