@@ -1,0 +1,38 @@
+.nav-wheel{
+    display: none;
+    background-color: rgba(34, 34, 34, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+.nav-wheel.active{
+    display: flex;
+}
+
+.nav-wheel svg{
+    width: 70vw;
+    height: 70vh;
+}
+
+.nav-button{
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0.25;
+    transition: opacity 0.5s ease;
+}
+
+.nav-button svg{
+    width: 100px;
+    height: 100px;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}

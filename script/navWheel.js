@@ -74,12 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
             let longPressTimeout;
             let hitbox = document.getElementById('hitbox');
             
+            hitbox.addEventListener('mouseenter', (e) => {
+                if(!wheelOpenBy) {
+                    button.style.opacity = 0.6;
+                }
+            });
+            hitbox.addEventListener('mouseleave', (e) => {
+                if(wheelOpenBy !== 'mouse' && wheelOpenBy !== 'touch') {
+                    button.style.opacity = 0.25;
+                }
+            });
+            
             hitbox.addEventListener("mousedown", (e) => {
                 if (wheelOpenBy) return;
+                button.style.opacity = 1;
+                wheelOpenBy = 'mouse';
 
                 longPressTimeout = setTimeout(() => {
                     hideWheel(false);
-                    wheelOpenBy = 'mouse';
                 }, 500);
             });
 
@@ -91,15 +103,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     hideWheel(true);
                     goToNextPage();
                     wheelOpenBy = null;
+                    button.style.opacity = 0.25;
                 }
             });
             
             hitbox.addEventListener("touchstart", (e) => {
                 if (wheelOpenBy) return;
+                button.style.opacity = 1;
+                wheelOpenBy = 'touch';
                 
                 longPressTimeout = setTimeout(() => { 
                     hideWheel(false);
-                    wheelOpenBy = 'touch';
                 }, 500);
             });
 
@@ -148,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         oldEl = null;
                     }
                     wheelOpenBy = null;
+                    button.style.opacity = 0.25;
                 }
             });
         });
@@ -189,10 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
             bg.style.strokeWidth = "0.5";
             selectedPage = id;
         }
-        else
-        {
-            
-        }
         
         rotateArrow(angles[id]);
         
@@ -211,10 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bg.style.stroke = "#000000";
         bg.style.strokeWidth = "0.3";
         arrow.style.display = "none";
-        
-        if(id === currentPage){
-            
-        }
         
         selectedPage = '';
         infoText.innerHTML = '';

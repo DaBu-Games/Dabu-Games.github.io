@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style/values.css">
     <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/navWheel.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script src="script/preload.js"></script>
     <script src="script/navWheel.js"></script>
@@ -16,7 +17,7 @@
 <body data-page="home">
     <div class="nav-wheel align-items-center justify-content-center" id="nav-wheel">
     </div>
-    <div class="nav-button d-lg-none" id="nav-button">
+    <div class="nav-button" id="nav-button">
         
     </div>
     
@@ -24,7 +25,7 @@
         <div class="row">
             <div class="col-3 d-none d-lg-block text-start justify-content-start py-1">
                 <div class="gradient-border">
-                    <img class="logo" src="media/header/logo.png" alt="logo" />
+                    <img class="logo" src="media/header/logo.svg" alt="logo" />
                 </div>
             </div>
             
@@ -38,25 +39,51 @@
                 <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
             </div>
         </div>
-        <div class="d-flex align-items-center flex-column">
-            <div class="gradient-border">
-                <img class="profile-pic" src="media/header/profile.jpg" alt="profile picture" />
+        <div class="row">
+            <div class="d-flex flex-column align-items-center">
+                <div class="gradient-border">
+                    <img class="profile-pic" src="media/header/profile.jpg" alt="profile picture" />
+                </div>
             </div>
-            
+        </div>
+        <div class="row">
             <div class="icons col-12 d-lg-none">
                 <a href="https://github.com/DaBu-Games" class="icon text-success" target="_blank"><i class="bi bi-github"></i></a>
                 <a href="https://www.linkedin.com/in/daan-buitelaar-376b57268/" class="icon text-success" target="_blank"><i class="bi bi-linkedin"></i></a>
                 <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
             </div>
-            
+        </div>
+        <div class="row">
             <h2 class="display-5">Game developer</h2>
         </div>
         <img src="media/header/CloudsL.svg" class="cloudsL">
         <img src="media/header/CloudsR.svg" class="cloudsR">
     </div>
     
-    <div class="container bg-secondary vh-100 mt-4">
-        <h1 class="text-center display-3">About me</h1>
+    <div class="container bg-secondary mt-3 text-center">
+        <div>
+            <h1 class="display-3">About me</h1>
+            <p>Hello, and thank you for taking an interest in my portfolio. My name is Daan Buitelaar, and I’m a second
+                year game developer at HKU. I’ve loved games ever since I played the first Skylanders as a kid. It
+                showed me what it feels like to step into a fantasy world and be the main character, instead of just
+                watching someone else’s story. It made me realize that games can tell stories in ways no other medium
+                can.</p>
+            <p>My goal is to one day start my own company with my friends and create games that go beyond jusrt
+                entertainment. I aim to use the incredible storytelling power of games to show people that games can
+                have a positive impact.</p>
+        </div>
+        <div>
+            <h1 class="display-3">Hobbies</h1>
+            <p>In my free time I love playing volleyball. You’ll usually find me practicing at least twice a week, as I
+                hope to eventually play at a semi professional level. I also help maintain my club’s website because of
+                my past in web development.</p>
+            <p>Content creation has been another focus of mine. Particularly making YouTube videos or live streaming on
+                twitch. While this has taken a lower priority recently, it’s something I’m planning to resume in the
+                near future.</p>
+            <p>Of course, I also love playing video games. My favorite game of all time is Hades, and I’ve spent many
+                hours on competitive games like Overwatch and Pokémon. I’d describe my gaming taste as focused on
+                strategy and team-building.</p>
+        </div>
     </div>
 </body>
 </html>

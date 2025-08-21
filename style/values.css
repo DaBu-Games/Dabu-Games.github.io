@@ -37,4 +37,9 @@
     .display-6 {
         font-weight: 400 !important;
     }
+
+    p {
+        font-size: clamp(0.9375rem, 2vw, 1.5rem);
+        line-height: 1.5;
+    }
 }
