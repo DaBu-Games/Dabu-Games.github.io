@@ -1,0 +1,45 @@
+{
+  "stars":[
+    {
+      "id" : "mavo",
+      "description" : "I obtained my MAVO diploma at Lentiz Dalton Mavo, graduating cum laude with an additional course in History."
+    },
+    {
+      "id" : "grafisch",
+      "description" : "I was accepted into Grafisch Lyceum Rotterdam for the Software Development study. I chose this school because it also offered a minor in Game Development, which originally sparked my interest in studying there."
+    },
+    {
+      "id" : "unity",
+      "description" : "While attending the Grafisch Lyceum, I completed an official Unity exam through the school and earned a Unity certificate, demonstrating my knowledge of the fundamentals of Unity."
+    },
+    {
+      "id" : "badbit",
+      "description" : "In my second year at the Grafisch Lyceum, I secured an internship at Badbit. Badbit is a company that maintains websites for other businesses and develops custom tools for clients. Such as a custom tool for Kiwa to help streamline their work processes."
+    },
+    {
+      "id" : "badbit-2",
+      "description" : "I started my internship in my third year at the Grafisch Lyceum. Here I helped develop custom tools for clients, managed emails, and assisted in maintaining websites."
+    },
+    {
+      "id" : "badbit-3",
+      "description" : "After completing my internship at Badbit, I was offered the opportunity to work there for a few additional months. I signed an official contract to continue working and support the company during this period."
+    },
+    {
+      "id" : "mbo",
+      "description" : "After three years at the Grafisch Lyceum, I obtained my MBO diploma in Software Development."
+    },
+    {
+      "id" : "hku",
+      "description" : "I was accepted into HKU for the Creative Media and Game Technologies study. I became interested in this study because it focuses exclusively on game development and design."
+    },
+    {
+      "id" : "propaedeutic",
+      "description" : "After my first year at HKU, I obtained my propaedeutic diploma in Creative Media and Game Technologies."
+    },
+    {
+      "id" : "keizer",
+      "description" : "I started working in the kitchen as a kitchen helper at De Keizer Restorbar, a mid-tier restaurant that serves lunch and dinner. Here, I help prepare appetizers and desserts, and occasionally assist with the main courses."
+    }
+    
+  ]
+}

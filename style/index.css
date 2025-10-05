@@ -91,3 +91,10 @@ body{
         font-size: 40px;
     }
 }
+
+.time-line > svg{
+    width: 95%;
+    height: auto;
+    max-height: 90vh;
+}
+

@@ -19,7 +19,6 @@ let selectedPage;
 document.addEventListener("DOMContentLoaded", () => {
     currentPage = document.body.dataset.page;
     const wheel = document.getElementById('nav-wheel');
-    const bodyFont = window.getComputedStyle(document.body).fontFamily;
 
     fetch("../media/wheel/wheel.svg")
         .then(res => res.text())
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
             arrow.style.display = 'none';
             
             infoText = document.getElementById('info-text');
-            infoText.style.fontFamily = bodyFont;
             infoText.innerHTML = '';
 
             Object.keys(pages).forEach(id => {
@@ -67,9 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(svg => {
             
             button.innerHTML = svg;
-            
-            let buttonText = document.getElementById('button-text');
-            buttonText.style.fontFamily = bodyFont;
             
             let longPressTimeout;
             let hitbox = document.getElementById('hitbox');
