@@ -55,7 +55,7 @@ body{
     display: inline-block;
     border-radius: 50%;
     background: linear-gradient(45deg, #00C7C7,#0B4F6C);
-    padding: 5px;
+    padding: 0.5vw;
 }
 
 .logo{
@@ -68,6 +68,13 @@ body{
     width: 24vw;
     height: 24vw;
     border-radius: 50%;
+    min-width: 150px;
+    min-height: 150px;
+}
+
+.skylander{
+    height: 100%;
+    width: 100%;
 }
 
 .icon{
@@ -97,6 +104,11 @@ body{
     height: auto;
     max-height: 90vh;
 }
+
+[id$="-star"] > path {
+    transition: all 0.5s ease-in-out;
+}
+
 
 
 

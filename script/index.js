@@ -150,7 +150,7 @@ function SetCloudPosition(star) {
     const svgWidth = svg.viewBox.baseVal.width || svgRect.width;
     const svgHeight = svg.viewBox.baseVal.height || svgRect.height;
 
-    let tx = svgWidth / 2; // default center
+    let tx = svgWidth / 2;
     let ty = svgHeight / 2;
 
     if (window.innerWidth < breakPoints.medium) {
@@ -158,11 +158,31 @@ function SetCloudPosition(star) {
     } else {
         tx = starInSvg.x > svgWidth / 2 ? svgWidth * 0.275 : svgWidth * 0.725;
     }
-
-    // now apply translation but keep scale centered
+    
     const cloudBBox = cloud.getBBox();
     const cx = cloudBBox.x + cloudBBox.width / 2;
     const cy = cloudBBox.y + cloudBBox.height / 2;
+    
+    let fromRight;
+    if (window.innerWidth < breakPoints.medium) {
+        fromRight = starInSvg.y < svgHeight / 2;
+    } else {
+        fromRight = starInSvg.x < svgWidth / 2;
+    }
+    
+    const startX = fromRight ? svgWidth + cloudBBox.width : -cloudBBox.width;
+    const startY = ty;
+
+    cloud.style.transition = 'none';
+    cloud.setAttribute(
+        "transform",
+        `translate(${startX}, ${startY}) scale(${cloudScale}) translate(${-cx}, ${-cy})`
+    );
+    cloud.setAttribute("opacity", "0");
+    
+    cloud.getBoundingClientRect();
+    
+    cloud.style.transition = 'transform 0.8s ease, opacity 0.5s ease';
     cloud.setAttribute(
         "transform",
         `translate(${tx}, ${ty}) scale(${cloudScale}) translate(${-cx}, ${-cy})`
