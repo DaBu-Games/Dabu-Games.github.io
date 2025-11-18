@@ -1,16 +1,3 @@
-@font-face {
-    font-family: "QuikSand"; /* This is the name you'll use in CSS */
-    src: url("../fonts/quicksand-font/QuicksandboldRegular.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-body{
-    margin: 0;
-    width: 100%;
-    font-family: 'QuikSand', sans-serif;
-}
-
 .header{
     background-image: url("../media/header/background.svg");
     background-repeat: no-repeat;
@@ -73,7 +60,6 @@ body{
 }
 
 .skylander{
-    height: 100%;
     width: 100%;
 }
 
@@ -83,6 +69,7 @@ body{
     justify-content: center;
     margin: 5px;
     font-size: 50px;
+    text-shadow: none;
 }
 
 .icon-transition{
@@ -103,12 +90,13 @@ body{
     width: 95%;
     height: auto;
     max-height: 90vh;
+    display: block;      /* required for margin auto centering */
+    margin: 0 auto;
 }
 
 [id$="-star"] > path {
     transition: all 0.5s ease-in-out;
 }
-
 
 
 

@@ -26,7 +26,8 @@
     /* Body text and background 
        --bs-body-bg-rgb
     */
-    --bs-body-color-rgb: --bs-dark-rgb;
+    --bs-body-color-rgb: var(--bs-info);
+    --bs-body-outline: var(--bs-primary);
     
     /* display values */
     .display-1,
@@ -42,4 +43,31 @@
         font-size: clamp(0.9375rem, 2vw, 1.5rem);
         line-height: 1.5;
     }
+}
+
+@font-face {
+    font-family: "QuikSand"; /* This is the name you'll use in CSS */
+    src: url("../fonts/quicksand-font/QuicksandboldRegular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    font-family: 'QuikSand', sans-serif;
+    color: var(--bs-body-color-rgb);
+    text-shadow:
+            -1.25px -1.25px 0 var(--bs-body-outline),
+            1.25px -1.25px 0 var(--bs-body-outline),
+            -1.25px  1.25px 0 var(--bs-body-outline),
+            1.25px  1.25px 0 var(--bs-body-outline);
+}
+
+p{
+    margin: 0;
+}
+
+svg tspan, text {
+    fill: var(--bs-body-color-rgb) !important;
 }

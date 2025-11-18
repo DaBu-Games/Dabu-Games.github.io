@@ -110,7 +110,7 @@ function WrapText(text) {
 }
 
 function LoadInSVG(size){
-    fetch(`../media/treetimeline${size}.svg`)
+    fetch(`../media/timeline/treetimeline${size}.svg`)
         .then(res => res.text())
         .then(svg => {
             const timeLine = document.getElementById('tree-time-line');
