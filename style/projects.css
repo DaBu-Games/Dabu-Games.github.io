@@ -1,0 +1,28 @@
+@import "values.css";
+@import "navWheel.css";
+@import "header.css";
+
+#project-cloud-box{
+    width: 100%;
+    height: 100%;
+    text-shadow: none;
+    text-align: center;
+}
+
+#project-cloud-title{
+    font-size: 7px;
+}
+
+#project-cloud-info{
+    font-size: 5px;
+}
+
+#project-cloud {
+    width: 100%;
+    padding: 1%;
+    height: auto;
+}
+
+#cloud{
+    width: 480px;
+}

@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
         if(selectedPage && selectedPage !== currentPage) {
             console.log(selectedPage);
-            //window.location.href = pages[selectedPage];
+            window.location.href = pages[selectedPage];
         }
 
         selectedPage = '';  
