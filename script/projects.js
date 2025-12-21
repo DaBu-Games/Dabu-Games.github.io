@@ -24,20 +24,47 @@ document.addEventListener('DOMContentLoaded', async () => {
                 svgEl.getElementById("project-cloud-title").textContent = project.title;
                 svgEl.getElementById("project-cloud-info").textContent = project.info;
                 const img = svgEl.getElementById("project-cloud-image");
-
-                // IMPORTANT: SVG uses xlink:href
+                
                 img.setAttributeNS(
                     "http://www.w3.org/1999/xlink",
                     "href",
                     "../media/" + project.img
                 );
+
+                svgEl.dataset.slug = project.slug;
                 
                 const col = document.createElement("div");
-                col.className = "col-12 col-md-6 p-4";
+                col.className = "col-12 col-sm-6 col-md-4 p-4";
 
                 col.appendChild(svgEl.cloneNode(true));
                 
                 projectContainer.appendChild(col);
             }
+
+
+            SetClouds();
         });
 })
+
+function SetClouds(){
+    let clouds = document.querySelectorAll("#project-cloud");
+    
+    clouds.forEach( cloud => {
+        const cloudBorder = cloud.querySelector("#cloud-border");
+
+        cloudBorder.addEventListener("mouseenter", () => {
+            cloudBorder.style.stroke = "#E42548";
+            cloudBorder.style.cursor = "pointer";
+        });
+
+        cloudBorder.addEventListener("mouseleave", () => {
+            cloudBorder.style.stroke = "white";
+            cloudBorder.style.cursor = "default";
+        });
+        
+        cloudBorder.addEventListener("click", () => {
+            const slug = cloud.dataset.slug;
+            window.location.href = `project.html?slug=${slug}`;
+        })
+    });
+}

@@ -1,20 +1,25 @@
 {
   "projects":[
     {
+      "slug": "wuxing.html",
       "title": "wuxing",
       "info": "Unity VR Game",
       "img": "hades-logo.png"
     },
     {
-      "title": "wuxing",
-      "info": "Unity VR Game",
-      "img": "hades-logo.png"
-    },{
+      "slug": "wuxing",
       "title": "wuxing",
       "info": "Unity VR Game",
       "img": "hades-logo.png"
     },
     {
+      "slug": "wuxing",
+      "title": "wuxing",
+      "info": "Unity VR Game",
+      "img": "hades-logo.png"
+    },
+    {
+      "slug": "wuxing",
       "title": "",
       "info": "",
       "img": ""
