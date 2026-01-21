@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         projectData = await response.json();
     }
     catch (error) {
-        console.error('Error loading timeline JSON:', error);
+        console.error('Error loading projects JSON:', error);
     }
 
     fetch("../media/projects-cloud.svg")
