@@ -1,0 +1,62 @@
+.header{
+    background-image: url("../media/header/background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cloudsL {
+    position: absolute;
+    bottom: 0;
+    left: -500px;
+    width: 58%;
+    z-index: -2;
+    animation: cloudLeftIn 2s ease-out forwards;
+    pointer-events: none;
+}
+
+.cloudsR {
+    position: absolute;
+    bottom: 0;
+    right: -500px; /* start position */
+    width: 51%;
+    z-index: -1;
+    animation: cloudRightIn 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes cloudLeftIn {
+    from { left: -500px; }
+    to   { left: 0; }
+}
+
+@keyframes cloudRightIn {
+    from { right: -500px; }
+    to   { right: 0; }
+}
+
+.icon{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    font-size: 50px;
+    text-shadow: none;
+}
+
+.icon-transition{
+    transition: color 0.5s ease-in-out;
+}
+
+.icon:hover i{
+    color: #F5F0F6;
+}
+
+@media (max-width: 992px) {
+    .icon i {
+        font-size: 40px;
+    }
+}

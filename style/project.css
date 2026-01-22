@@ -1,0 +1,8 @@
+@import "values.css";
+@import "navWheel.css";
+@import "header.css";
+
+.header{
+    filter: blur(10px);
+}
+

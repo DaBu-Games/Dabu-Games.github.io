@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/project.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="script/navWheel.js"></script>
+    <script src="script/header.js"></script>
+    <script src="script/project.js"></script>
+</head>
+<body data-page="projects">
+    <div class="nav-wheel align-items-center justify-content-center" id="nav-wheel">
+    </div>
+    <div class="nav-button" id="nav-button">
+    </div>
+    <div class="header vh-100 position-fixed">
+        <img src="media/header/CloudsL.svg" class="cloudsL" alt="cloud-left">
+        <img src="media/header/CloudsR.svg" class="cloudsR" alt="cloud-right">
+    </div>
+    
+    <div class="text-center container-fluid position-relative">
+        <div class="row">
+            <div class="col-3 d-none d-lg-block text-start justify-content-start py-1">
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <h1 class="display-1" id="project-title">{$title}</h1>
+                <h1 class="display-6" id="project-info">{$info}</h1>
+            </div>
+            <div class="icons col-3 d-none d-lg-block text-end d-flex gap-2 justify-content-end align-items-center">
+                <a href="https://github.com/DaBu-Games" class="icon text-success" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.linkedin.com/in/daan-buitelaar-376b57268/" class="icon text-success" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
+            </div>
+        </div>
+        <div class="container d-flex align-items-center justify-content-center py-2">
+            <div class="row w-100 justify-content-center">
+                <div class="col-6 text-center">
+                    <img src="" alt="project-img" id="project-img" class="img-fluid" style="max-height: 25vh;">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="icons col-12 d-lg-none">
+                <a href="https://github.com/DaBu-Games" class="icon text-success" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.linkedin.com/in/daan-buitelaar-376b57268/" class="icon text-success" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
+            </div>
+        </div>
+        <div class="row content" id="project-content">
+            
+        </div>
+    </div>
+</body>
+</html>
