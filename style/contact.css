@@ -1,0 +1,21 @@
+@import "values.css";
+@import "navWheel.css";
+@import "header.css";
+
+a {
+    color: var(--bs-success);
+}
+
+a:hover,
+a:focus {
+    color: var(--bs-info);
+}
+
+.icon{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    font-size: 40px;
+    text-shadow: none;
+}
