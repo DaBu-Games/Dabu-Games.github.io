@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.getElementById('project-title').textContent = project.title;
         document.getElementById('project-info').textContent = project.info;
-        document.getElementById('project-img').src = "../media/" + project.img;
+        document.getElementById('project-img').src = `../media/projects/${project.slug}/${project.img}`;
         
         const page = await fetch(`projects/${project.slug}.html`);
         if (!page.ok) throw new Error('Failed to fetch JSON');
