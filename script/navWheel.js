@@ -38,10 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(id === currentPage) {
                     let icon = document.getElementById(`${id}-icon`);
                     let bg = document.getElementById(`${id}-bg`);
-                    
-                    icon.style.fill = '#222222';
-                    bg.style.fill = '#222222';
-                    icon.style.stroke = '#E42548';
+                    let outline = document.getElementById(`${id}-outline`);
+
+                    icon?.style.setProperty('fill', '#222222');
+                    bg?.style.setProperty('fill', '#222222');
+                    icon?.style.setProperty('stroke', '#E42548');
+                    outline?.style.setProperty('stroke', '#E42548');
                 }
                 
                 const el = document.getElementById(id);
