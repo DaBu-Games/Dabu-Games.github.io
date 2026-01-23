@@ -39,7 +39,7 @@
         font-weight: 400 !important;
     }
 
-    p {
+    p, li {
         font-size: clamp(0.9375rem, 2vw, 1.5rem);
     }
 }
