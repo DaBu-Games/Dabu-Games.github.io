@@ -52,13 +52,15 @@ function SetClouds(){
     clouds.forEach( cloud => {
         const cloudBorder = cloud.querySelector("#cloud-border");
 
+        cloudBorder.style.stroke = "#E42548";
+
         cloudBorder.addEventListener("mouseenter", () => {
-            cloudBorder.style.stroke = "#E42548";
+            cloudBorder.style.stroke = "white";
             cloudBorder.style.cursor = "pointer";
         });
 
         cloudBorder.addEventListener("mouseleave", () => {
-            cloudBorder.style.stroke = "white";
+            cloudBorder.style.stroke = "#E42548";
             cloudBorder.style.cursor = "default";
         });
         
