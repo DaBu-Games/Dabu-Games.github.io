@@ -191,7 +191,7 @@ function SetCloudPosition(star) {
 }
 
 function LoadCloudSVG(timelineSVG) {
-    fetch(`../media/cloud.svg`)
+    fetch(`../media/header/cloud.svg`)
         .then(res => res.text())
         .then(svg => {
             const parser = new DOMParser();

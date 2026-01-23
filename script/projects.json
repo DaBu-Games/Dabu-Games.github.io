@@ -1,22 +1,10 @@
 {
   "projects":[
     {
-      "slug": "wuxing",
-      "title": "wuxing",
-      "info": "Unity VR Game",
-      "img": "hades-logo.png"
-    },
-    {
-      "slug": "pareidolia-tool",
-      "title": "Pareidolia Tool",
-      "info": "Godot paint tool",
-      "img": "hades-logo.png"
-    },
-    {
       "slug": "bound-to-chainge",
       "title": "Bound to Chainge",
       "info": "2D unity platformer",
-      "img": "hades-logo.png"
+      "img": "bound-to-chainge-cover.png"
     }
   ]
 }

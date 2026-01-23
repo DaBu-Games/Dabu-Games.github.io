@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error loading projects JSON:', error);
     }
 
-    fetch("../media/projects-cloud.svg")
+    fetch("../media/header/projects-cloud.svg")
         .then(res => res.text())
         .then(svg => {
             for (const project of projectData.projects) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 img.setAttributeNS(
                     "http://www.w3.org/1999/xlink",
                     "href",
-                    "../media/" + project.img
+                    `../media/projects/${project.slug}/${project.img}`
                 );
 
                 svgEl.dataset.slug = project.slug;
