@@ -28,15 +28,6 @@
     z-index: 1;
 }
 
-a {
-    color: var(--bs-success);
-}
-
-a:hover,
-a:focus {
-    color: var(--bs-info);
-}
-
 .icon{
     display: inline-flex;
     align-items: center;

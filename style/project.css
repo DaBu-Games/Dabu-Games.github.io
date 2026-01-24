@@ -2,6 +2,18 @@
 @import "navWheel.css";
 @import "header.css";
 
-.header{
-    
+.pixel-art{
+    image-rendering: pixelated;
+}
+
+.link{
+    font-size: 30px;
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+
+    .link{
+        font-size: 20px;
+    }
 }

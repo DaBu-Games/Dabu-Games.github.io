@@ -70,3 +70,12 @@ p{
 svg tspan, text {
     fill: var(--bs-body-color-rgb) !important;
 }
+
+a {
+    color: var(--bs-success);
+    text-shadow: none;
+}
+
+a:hover{
+    color: var(--bs-info);
+}

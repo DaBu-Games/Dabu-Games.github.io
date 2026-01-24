@@ -6,16 +6,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch('script/projects.json');
         if (!response.ok) throw new Error('Failed to fetch JSON');
         const projectData = await response.json();
-        const project = projectData.projects.find(p => p.slug === slug);
+        let project = projectData.projects.find(p => p.slug === slug);
 
         if (!project) {
-            console.error('Project not found');
-            return;
+            project = projectData.projects[0];
         }
 
         document.getElementById('project-title').textContent = project.title;
         document.getElementById('project-info').textContent = project.info;
         document.getElementById('project-img').src = `../media/projects/${project.slug}/${project.img}`;
+
+        document.getElementById('github-url').href = project.github;
+        
+        let github = project.github;
+        github = github.substring(github.lastIndexOf('/') + 1);
+        document.getElementById('github-text').innerHTML = "DaBu-Games/" + github;
+
+        document.getElementById('itchio-url').href = project.itchio;
+        
+        let itch = project.itchio;
+        itch = itch.substring(itch.lastIndexOf('/') + 1);
+        document.getElementById('itchio-text').innerHTML = "itch.io/" + itch;
         
         const page = await fetch(`projects/${project.slug}.html`);
         if (!page.ok) throw new Error('Failed to fetch JSON');
