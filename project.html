@@ -19,35 +19,45 @@
     <div class="nav-button" id="nav-button">
     </div>
     
-    <div class="header vh-100 position-fixed">
+    <div class="header text-center container-fluid">
         <img src="media/header/CloudsL.svg" class="cloudsL" alt="cloud-left">
         <img src="media/header/CloudsR.svg" class="cloudsR" alt="cloud-right">
+        
+        <div class="row justify-content-center">
+            <div class="col-1">
+                <div class="back-arrow" id="back-arrow-box">
+                </div>
+            </div>
+            <div class=" col-10 text-center">
+                <h1 class="display-1" id="project-title"></h1>
+                <h1 class="display-6" id="project-info"></h1>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <a href="" id="github-url" class="link" target="_blank">
+                    <i class="bi bi-github"></i>
+                    <span id="github-text"></span>
+                </a>
+            </div>
+            <div>
+                <a href="" id="itchio-url" class="link" target="_blank">
+                    <i class="bi bi-joystick"></i>
+                    <span id="itchio-text"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center py-4">
+            <div class="col-8 col-md-6 col-lg-4 text-center">
+                <img src="" alt="project-img" id="project-img" class="w-100">
+            </div>
+        </div>
     </div>
-    
-    <div class="text-center container-fluid position-relative">
-        <div class="row">
-            <div class="col-3 d-none d-lg-block text-start justify-content-start py-1">
-            </div>
-            <div class="col-12 col-lg-6 text-center">
-                <h1 class="display-1" id="project-title">{$title}</h1>
-                <h1 class="display-6" id="project-info">{$info}</h1>
-            </div>
-            <div class="icons col-3 d-none d-lg-block text-end d-flex gap-2 justify-content-end align-items-center">
-                <a href="https://github.com/DaBu-Games" class="icon text-success" target="_blank"><i class="bi bi-github"></i></a>
-                <a href="https://www.linkedin.com/in/daan-buitelaar-376b57268/" class="icon text-success" target="_blank"><i class="bi bi-linkedin"></i></a>
-                <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="icons col-12 d-lg-none">
-                <a href="https://github.com/DaBu-Games" class="icon text-success" target="_blank"><i class="bi bi-github"></i></a>
-                <a href="https://www.linkedin.com/in/daan-buitelaar-376b57268/" class="icon text-success" target="_blank"><i class="bi bi-linkedin"></i></a>
-                <a href="https://dabugames.itch.io/" class="icon text-success" target="_blank"><i class="bi bi-joystick"></i></a>
-            </div>
-        </div>
-        <div class="row content" id="project-content">
-            
-        </div>
+    <div class="container content text-start bg-secondary p-4" id="project-content">
+
     </div>
 </body>
 </html>

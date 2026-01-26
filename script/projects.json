@@ -4,7 +4,9 @@
       "slug": "bound-to-chainge",
       "title": "Bound to Chainge",
       "info": "2D unity platformer",
-      "img": "bound-to-chainge-cover.png"
+      "img": "bound-to-chainge-cover.png",
+      "github": "https://github.com/DaBu-Games/bound-to-chains",
+      "itchio": "https://dabugames.itch.io/bound-to-chainge"
     }
   ]
 }

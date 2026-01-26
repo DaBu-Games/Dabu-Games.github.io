@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="7.0628023mm"
+   height="7.1712203mm"
+   viewBox="0 0 7.0628023 7.1712202"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   sodipodi:docname="back-arrow.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="14.426008"
+     inkscape:cx="15.007617"
+     inkscape:cy="8.1103517"
+     inkscape:window-width="1920"
+     inkscape:window-height="995"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" /><defs
+     id="defs1"><linearGradient
+       id="swatch30"><stop
+         style="stop-color:#00ffff;stop-opacity:1;"
+         offset="0"
+         id="stop30" /></linearGradient><linearGradient
+       id="swatch29"><stop
+         style="stop-color:#00ffff;stop-opacity:1;"
+         offset="0"
+         id="stop29" /></linearGradient></defs><path
+     style="fill:#e42548;fill-opacity:1;fill-rule:evenodd;stroke:#0b4f6c;stroke-width:0.799999;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.7;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     d="M 3.286368,6.771272 C 2.5321211,6.803212 5.8453199,2.861509 6.0000263,1.802578 6.3298385,-0.45491303 2.0784454,3.492981 2.0784454,3.492981 L 3.286947,3.761537 1.0042218,4.500066 0.39997104,2.955869 1.2056388,3.224425 c 0,0 10.7416562,-8.2696129 2.0807292,3.546847 z"
+     id="back-arrow"
+     inkscape:label="back-arrow" /></svg>
