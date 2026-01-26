@@ -33,8 +33,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const html = await page.text();
         document.getElementById('project-content').innerHTML = html;
+
+        SetArrow();
     }
     catch (error) {
         console.error('Error loading projects JSON:', error);
     }
 });
+
+
+function SetArrow() {
+    fetch("../media/projects/back-arrow.svg")
+        .then(res => res.text())
+        .then(svg => {
+            
+            let arrowBox = document.getElementById("back-arrow-box");
+            arrowBox.innerHTML = svg;
+            
+            let arrow = document.getElementById("back-arrow");
+
+            arrowBox.addEventListener("mouseenter", () => {
+                arrowBox.style.cursor = "pointer";
+                arrow.style.fill = "white";
+            })
+
+            arrowBox.addEventListener("mouseleave", () => {
+                arrowBox.style.cursor = "none";
+                arrow.style.fill = "#E42548";
+            })
+
+            arrowBox.addEventListener("click", () => {
+                window.location.href = "projects.html";
+            })
+        });
+}
