@@ -7,6 +7,14 @@
       "img": "bound-to-chainge-cover.png",
       "github": "https://github.com/DaBu-Games/bound-to-chains",
       "itchio": "https://dabugames.itch.io/bound-to-chainge"
+    },
+    {
+      "slug": "community-complex",
+      "title": "Community Complex",
+      "info": "2D unity puzzel game",
+      "img": "community-complex-cover.png",
+      "github": "https://github.com/DaBu-Games/CommunityComplex",
+      "itchio": "https://dabugames.itch.io/the-community-complex"
     }
   ]
 }

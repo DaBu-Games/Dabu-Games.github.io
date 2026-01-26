@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error loading projects JSON:', error);
     }
 
-    fetch("../media/header/projects-cloud.svg")
+    fetch("../media/projects/projects-cloud.svg")
         .then(res => res.text())
         .then(svg => {
             for (const project of projectData.projects) {
