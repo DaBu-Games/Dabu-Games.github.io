@@ -6,9 +6,32 @@
     image-rendering: pixelated;
 }
 
-.link{
-    font-size: 30px;
-    text-align: center;
+.link {
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.75rem;
+    font-size: 20px;
+}
+
+.link i {
+    font-size: 1.1rem;
+    color: var(--bs-success);
+    flex-shrink: 0;
+}
+
+.link a {
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+.link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--bs-success);
 }
 
 .back-arrow > svg {
@@ -18,12 +41,5 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    transition: color 0.5s ease-in-out;;
-}
-
-@media (max-width: 992px) {
-
-    .link{
-        font-size: 20px;
-    }
+    transition: color 0.5s ease-in-out;
 }

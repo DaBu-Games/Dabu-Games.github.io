@@ -71,7 +71,7 @@ svg tspan, text {
     fill: var(--bs-body-color-rgb) !important;
 }
 
-a {
+a, i {
     color: var(--bs-success);
     text-shadow: none;
 }

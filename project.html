@@ -20,38 +20,49 @@
     </div>
     
     <div class="header text-center container-fluid">
-        <img src="media/header/CloudsL.svg" class="cloudsL" alt="cloud-left">
-        <img src="media/header/CloudsR.svg" class="cloudsR" alt="cloud-right">
-        
         <div class="row justify-content-center">
             <div class="col-1">
                 <div class="back-arrow" id="back-arrow-box">
                 </div>
             </div>
-            <div class=" col-10 text-center">
+            <div class=" col-10 text-md-start text-center">
                 <h1 class="display-1" id="project-title"></h1>
-                <h1 class="display-6" id="project-info"></h1>
             </div>
             <div class="col-1">
                 
             </div>
         </div>
-        <div class="row">
-            <div>
-                <a href="" id="github-url" class="link" target="_blank">
-                    <i class="bi bi-github"></i>
-                    <span id="github-text"></span>
-                </a>
+        <div class="row justify-content-center pb-2">
+            <div class="col-md-6 col-lg-5 col-10 text-md-start text-center">
+                <h1 class="display-6" id="project-info"></h1>
+                <div class="row">
+                    <div class="link">
+                        <i class="bi bi-people-fill"></i><span> Group : </span><span id="project-team"></span>
+                    </div>
+                    <div class="link">
+                        <i class="bi bi-calendar-range-fill"></i><span> Duration: </span><span id="time-frame"></span>
+                    </div>
+                    <div class="link">
+                        <i class="bi bi-calendar-fill"></i><span> Year: </span><span id="project-year"></span>
+                    </div>
+                    <div class="link">
+                        <a href="" id="github-url" target="_blank">
+                            <i class="bi bi-github"></i>
+                            <span id="github-text"></span>
+                        </a>
+                    </div>
+                    <div class="link">
+                        <a href="" id="itchio-url" target="_blank">
+                            <i class="bi bi-joystick"></i>
+                            <span id="itchio-text"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div>
-                <a href="" id="itchio-url" class="link" target="_blank">
-                    <i class="bi bi-joystick"></i>
-                    <span id="itchio-text"></span>
-                </a>
+            <div class="col-1 d-none d-lg-block">
+                
             </div>
-        </div>
-        <div class="row justify-content-center py-4">
-            <div class="col-8 col-md-6 col-lg-4 text-center">
+            <div class="col-md-4 col-8 text-center py-4 d-flex justify-content-center flex-column">
                 <img src="" alt="project-img" id="project-img" class="w-100">
             </div>
         </div>

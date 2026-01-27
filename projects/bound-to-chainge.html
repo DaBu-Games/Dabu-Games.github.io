@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="col-12 col-md-6">
-        <h1>Game Play</h1>
+        <h1>Gameplay</h1>
         <p>
             Bound to chainge is a 2D platformer where you are trying to escape a prison.
             In the game you can make the player move around and jump.
@@ -32,46 +32,43 @@
 
 <div>
     <div class="row">
-        <h1>Work flow</h1>
-        <p>
-            In this project I made my own <a href="https://github.com/DaBu-Games/bound-to-chains/tree/main/bound-to-chains/Assets/Scripts/StateMachine" target="_blank">state machine</a>. 
-            With this I made 10 different states the player could be in:
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/ClimbingState.cs" target="_blank">Climbing</a>, 
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/CrouchingState.cs" target="_blank">Crouching</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/FallingState.cs" target="_blank">Falling</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/HangingState.cs" target="_blank">Hanging</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/IdleState.cs" target="_blank">Idle</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/JumpingState.cs" target="_blank">Jumping</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/PullingState.cs" target="_blank">Pulling</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/RisingState.cs" target="_blank">Rising</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/ThrowState.cs" target="_blank">Throwing</a> and
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/WalkingState.cs" target="_blank">Walking</a>
-        </p>
+        <h1>State machine</h1>
+        <div class="row justify-content-center">
+            <div class="col-12-md col-4 order-2 order-md-1">
+                <img src=../media/projects/bound-to-chainge/bound-to-chainge-state.png alt="" class="w-100">
+            </div>
+            <div class="col-12-md col-8 order-1 order-md-2">
+                <p>
+                    In this project I made my own state machine that I use for the player.
+                    Here I can set different transition for every state I have in the state machine.
+                    Every state uses the state base class. This class has an Enter,Exit, Update and fixed update function.
+                </p>
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col-md col-12">
+                <p>
+                    Now every update or fixed update you call the update/fixed update of the current state if it's not empty.
+                    If the state is empty ignore it.
+                </p>
+            </div>
+            <div class="col-md col-12">
+                <img src="../media/projects/bound-to-chainge/bound-to-chaing-update.png" alt="" class="w-100">
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col-md col-12 order-2 order-md-1">
+                <img src="../media/projects/bound-to-chainge/bound-to-chainge-switch.png" alt="" class="w-100">
+            </div>
+            <div class="col-md col-12 order-1 order-md-2">
+                <p>
+                    You can call the Switch State in the state machine to switch to a different state.
+                    In here you call the exit function of the old state and set the current state to the new state.
+                    Then you call the enter function of the current state.
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="row my-3">
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/climbing.png" alt="climbing" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/hanging.png" alt="hanging" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/jump.png" alt="jumping" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/throw.png" alt="throwing" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/walking.png" alt="walking" class="w-100 pixel-art">
-        </div>
-    </div>
-    <div class="row">
-        <p>
-            I used this state machine to transition from different animations or change physics values of the player.
-            For example if the player is in the falling state increase the gravity so you have more control over the jump.
-        </p>
-    </div>
-
 </div>
 
 

@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('project-title').textContent = project.title;
         document.getElementById('project-info').textContent = project.info;
         document.getElementById('project-img').src = `../media/projects/${project.slug}/${project.img}`;
+        document.getElementById('time-frame').innerHTML = project.timeframe;
+        document.getElementById('project-year').innerHTML = project.year;
+        document.getElementById('project-team').innerHTML = project.team;
+        
 
         document.getElementById('github-url').href = project.github;
         
