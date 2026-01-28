@@ -58,12 +58,12 @@ public class Transition
 {
     public readonly IState fromState;
     public readonly IState toState;
-    private System.Func<bool> condition;
+    private System.Func&lt;bool&gt; condition;
 
     public Transition(
         IState fromState, 
         IState toState, 
-        System.Func<bool> condition)
+        System.Func&lt;bool&gt; condition)
     {
         this.fromState = fromState;
         this.toState = toState;
@@ -100,8 +100,8 @@ public class Transition
 public class StateMachine
 {
     public IState currentState { get; private set; }
-    private List<Transition> transitions = new List<Transition>();
-    private List<Transition> currentTransitions = new List<Transition>();
+    private List&lt;Transition&gt; transitions = new List&lt;Transition&gt;();
+    private List&lt;Transition&gt; currentTransitions = new List&lt;Transition&gt;();
 
     public void OnUpdate()
     {
@@ -144,44 +144,113 @@ public void SwitchState(IState state)
     </div>
 </div>
 <div>
-    <h1>Buffer Jump</h1>
-    <div class="row justify-content-center mb-4">
-        <div class="col-lg-7 col-12">
+    <h1>Buffer / Coyote Jump</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-12 mb-4">
             <p>
-                
+                The player also has a buffer and Coyote jump.
+                This means you can press the space bar a little before landing on de ground or a little bit after leaving the ground and still jump.
+                <br>
+                <br>
+                For the coyote jump I keep track when the last time was when the player was on the ground.
+                If the time that has passed since then is smaller than the leave ground buffer time then the player can still jump.
+                <br>
+                <br>
+                For the buffer jump do the same check as the Coyote jump, 
+                but now I check if the time that has passed since you last pressed jump is smaller than the jump input buffer time.
             </p>
         </div>
-        <div class="col-lg-5 col-12">
+        <div class="col-lg-6 col-12">
 <pre><code class="language-cs hljs language-csharp">
-public interface IState
+private bool CanCoyoteJump()
 {
-    void OnUpdate();
-    void OnFixedUpdate();
-    void OnEnterState();
-    void OnExitState();
+    return 
+        Time.time - playerGroundCheck.lastOnGroundTime <= 
+        variables.leaveGroundBufferTime;
+}
+
+private bool IsJumpBufferd()
+{
+    return 
+        Time.time - playerInput.lastPressedJumpTime <= 
+        variables.jumpInputBufferTime
+}
+
+private bool CanPlayerJump()
+{
+    return
+        (playerGroundCheck.isGrounded || CanCoyoteJump()) && 
+        !isJumping && 
+        IsJumpBufferd();
 }
 </code></pre>
         </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            Now the player can jump when the player is not already jumping, CanBufferJump is true, the player is grounded or CanCyoteJump is true.
+        </p>
     </div>
 </div>
 <div>
     <h1>Chain physics</h1>
     <div class="row justify-content-center mb-4">
-        <div class="col-lg-7 col-12">
+        <div class="col-lg-6 col-12">
             <p>
-
+                The chain that connect the player and the ball has its own calculated physic. 
+                For these physic I used the formulae of: Verlet Integration.
+                This formula calculates an objects movement using its current position and previous position.
+                <br>
+                <br>
+                I have a class called ChainSegments. In here I can save the chain segments old and new position. 
+                Then in the GenerateChain Class I have a list of these chain segments. 
+                Now for every segment in this list I calculate the new position using Verlet Integration.
             </p>
         </div>
-        <div class="col-lg-5 col-12">
+        <div class="col-lg-6 col-12">
 <pre><code class="language-cs hljs language-csharp">
-public interface IState
+private void Simulate()
 {
-    void OnUpdate();
-    void OnFixedUpdate();
-    void OnEnterState();
-    void OnExitState();
+    startPoint = this.transform.position;
+    endPoint = GetAnchorPosition();
+    for (int i = 1; i < chainSegmentAmount; i++)
+    {
+        ChainSegment firstSegment = chainSegments[i];
+        Vector2 velocity = firstSegment.newPosition - firstSegment.oldPosition;
+        firstSegment.oldPosition = firstSegment.newPosition;
+        firstSegment.newPosition += velocity;
+        firstSegment.newPosition += gravity * Time.fixedDeltaTime;
+        chainSegments[i] = firstSegment;
+    }
 }
 </code></pre>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+            <p>
+                Now I add every segment to a line render.
+                This visualises the chain to the player and makes it show accurate rope / chain physics.
+            </p>
+            <pre><code class="language-cs hljs language-csharp">
+private void UpdateLineRenderer()
+{
+    Vector3[] positions = new Vector3[chainSegments.Count + 1];
+    positions[0] = new Vector3(startPoint.x, startPoint.y, chainOffset);
+
+    for (int i = 0; i < chainSegments.Count; i++)
+    {
+        Vector2 position = chainSegments[i].newPosition;
+        positions[i + 1] = new Vector3(position.x, position.y, chainOffset);
+    }
+
+    lineRenderer.positionCount = chainSegments.Count + 1;
+    lineRenderer.SetPositions(positions);
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-10">
+            <img src="../media/projects/bound-to-chainge/bound-to-chains-rope.gif" alt="rope-physics" class="w-100">
         </div>
     </div>
 </div>

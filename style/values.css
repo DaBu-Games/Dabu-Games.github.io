@@ -79,3 +79,7 @@ a, i {
 a:hover{
     color: var(--bs-info);
 }
+
+html{
+    scrollbar-color: var(--bs-secondary) var(--bs-primary);
+}
