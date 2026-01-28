@@ -12,7 +12,7 @@
         <img src="../media/projects/bound-to-chainge/bound-to-chainge-game-play.png" alt="game-play-img" class="w-100">
     </div>
 </div>
-<div class="mb-4 row">
+<div class="row mb-4">
     <h1>Research</h1>
     <p>
         In this project I researched an all or nothing moment.
@@ -29,47 +29,159 @@
         This is what originally inspired most mechanics in bound to chainge.
     </p>
 </div>
-
 <div>
-    <div class="row">
-        <h1>State machine</h1>
-        <div class="row justify-content-center">
-            <div class="col-12-md col-4 order-2 order-md-1">
-                <img src=../media/projects/bound-to-chainge/bound-to-chainge-state.png alt="" class="w-100">
-            </div>
-            <div class="col-12-md col-8 order-1 order-md-2">
-                <p>
-                    In this project I made my own state machine that I use for the player.
-                    Here I can set different transition for every state I have in the state machine.
-                    Every state uses the state base class. This class has an Enter,Exit, Update and fixed update function.
-                </p>
-            </div>
+    <h1>State machine</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-7 col-12">
+            <p>
+                In this project I made my own state machine that I use for the player.
+                Here I can set different transition for every state I have in the state machine.
+                Ever state class from the player inherits from this interface so they can be used in the state machine
+            </p>
         </div>
-        <div class="row py-3">
-            <div class="col-md col-12">
-                <p>
-                    Now every update or fixed update you call the update/fixed update of the current state if it's not empty.
-                    If the state is empty ignore it.
-                </p>
-            </div>
-            <div class="col-md col-12">
-                <img src="../media/projects/bound-to-chainge/bound-to-chaing-update.png" alt="" class="w-100">
-            </div>
+        <div class="col-lg-5 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public interface IState
+{
+    void OnUpdate();
+    void OnFixedUpdate();
+    void OnEnterState();
+    void OnExitState();
+}
+</code></pre>
         </div>
-        <div class="row py-3">
-            <div class="col-md col-12 order-2 order-md-1">
-                <img src="../media/projects/bound-to-chainge/bound-to-chainge-switch.png" alt="" class="w-100">
-            </div>
-            <div class="col-md col-12 order-1 order-md-2">
-                <p>
-                    You can call the Switch State in the state machine to switch to a different state.
-                    In here you call the exit function of the old state and set the current state to the new state.
-                    Then you call the enter function of the current state.
-                </p>
-            </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-8 col-12 order-2 order-lg-1">
+<pre><code class="language-csharp">
+public class Transition
+{
+    public readonly IState fromState;
+    public readonly IState toState;
+    private System.Func<bool> condition;
+
+    public Transition(
+        IState fromState, 
+        IState toState, 
+        System.Func<bool> condition)
+    {
+        this.fromState = fromState;
+        this.toState = toState;
+        this.condition = condition;
+    }
+
+    public bool CheckCondition()
+    {
+        return condition();
+    }
+
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-12 order-1 order-lg-2">
+            <p>
+                The state machine uses the transition class to know when to switch from state.
+                The transition class consist of the current state and the state it wants to go to.
+                It also holds a condition that you need to set.
+                This makes it so you only transition to the new state if the condition is true.
+            </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            In the state machine itself it holds the current IState, a list of all transitions and a list of all the transitions of the current state.
+            Every update it checks all the transitions in the currentTransitions list.
+            If any of these transitions are true it calls the switch state function.
+        </p>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-6 col-12">
+            <pre><code class="language-csharp">
+public class StateMachine
+{
+    public IState currentState { get; private set; }
+    private List<Transition> transitions = new List<Transition>();
+    private List<Transition> currentTransitions = new List<Transition>();
+
+    public void OnUpdate()
+    {
+        foreach (var transition in currentTransitions) 
+        {
+           if( transition.CheckCondition())
+               SwitchState( transition.toState );
+        }
+        
+        currentState?.OnUpdate();
+    }
+}
+</code></pre>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-csharp">
+public void SwitchState(IState state)
+{
+    currentState?.OnExitState();
+    currentState = state;
+    if (currentState == null)
+    return;
+    
+    currentTransitions = transitions.FindAll(
+    x => x.fromState == currentState ||
+    x.fromState == null);
+    
+    currentState.OnEnterState();
+    Debug.Log(currentState.ToString());
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            The switch state function checks if the current state is valid or not.
+            If it is it call the OnExit function on the old state and the OnEnter function on the new state.
+            After it updates the current transitions list with all the transitions of the new state.
+        </p>
+    </div>
+</div>
+<div>
+    <h1>Buffer Jump</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-7 col-12">
+            <p>
+                
+            </p>
+        </div>
+        <div class="col-lg-5 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public interface IState
+{
+    void OnUpdate();
+    void OnFixedUpdate();
+    void OnEnterState();
+    void OnExitState();
+}
+</code></pre>
         </div>
     </div>
 </div>
+<div>
+    <h1>Chain physics</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-7 col-12">
+            <p>
 
-
-
+            </p>
+        </div>
+        <div class="col-lg-5 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public interface IState
+{
+    void OnUpdate();
+    void OnFixedUpdate();
+    void OnEnterState();
+    void OnExitState();
+}
+</code></pre>
+        </div>
+    </div>
+</div>

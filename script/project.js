@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!page.ok) throw new Error('Failed to fetch JSON');
         
         const html = await page.text();
-        document.getElementById('project-content').innerHTML = html;
+        const container = document.getElementById('project-content');
+        container.innerHTML = html;
+
+        container.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
 
         SetArrow();
     }

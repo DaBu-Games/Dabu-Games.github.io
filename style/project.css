@@ -2,8 +2,8 @@
 @import "navWheel.css";
 @import "header.css";
 
-.pixel-art{
-    image-rendering: pixelated;
+code{
+    text-shadow: none;
 }
 
 .link {
