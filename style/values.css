@@ -71,11 +71,15 @@ svg tspan, text {
     fill: var(--bs-body-color-rgb) !important;
 }
 
-a {
+a, i {
     color: var(--bs-success);
     text-shadow: none;
 }
 
 a:hover{
     color: var(--bs-info);
+}
+
+html{
+    scrollbar-color: var(--bs-secondary) var(--bs-primary);
 }

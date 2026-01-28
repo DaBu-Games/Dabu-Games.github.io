@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('project-title').textContent = project.title;
         document.getElementById('project-info').textContent = project.info;
         document.getElementById('project-img').src = `../media/projects/${project.slug}/${project.img}`;
+        document.getElementById('time-frame').innerHTML = project.timeframe;
+        document.getElementById('project-year').innerHTML = project.year;
+        document.getElementById('project-team').innerHTML = project.team;
+        
 
         document.getElementById('github-url').href = project.github;
         
@@ -32,7 +36,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!page.ok) throw new Error('Failed to fetch JSON');
         
         const html = await page.text();
-        document.getElementById('project-content').innerHTML = html;
+        const container = document.getElementById('project-content');
+        container.innerHTML = html;
+
+        container.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
 
         SetArrow();
     }

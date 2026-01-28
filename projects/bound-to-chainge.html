@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="col-12 col-md-6">
-        <h1>Game Play</h1>
+        <h1>Gameplay</h1>
         <p>
             Bound to chainge is a 2D platformer where you are trying to escape a prison.
             In the game you can make the player move around and jump.
@@ -12,7 +12,7 @@
         <img src="../media/projects/bound-to-chainge/bound-to-chainge-game-play.png" alt="game-play-img" class="w-100">
     </div>
 </div>
-<div class="mb-4 row">
+<div class="row mb-4">
     <h1>Research</h1>
     <p>
         In this project I researched an all or nothing moment.
@@ -29,50 +29,228 @@
         This is what originally inspired most mechanics in bound to chainge.
     </p>
 </div>
-
 <div>
-    <div class="row">
-        <h1>Work flow</h1>
-        <p>
-            In this project I made my own <a href="https://github.com/DaBu-Games/bound-to-chains/tree/main/bound-to-chains/Assets/Scripts/StateMachine" target="_blank">state machine</a>. 
-            With this I made 10 different states the player could be in:
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/ClimbingState.cs" target="_blank">Climbing</a>, 
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/CrouchingState.cs" target="_blank">Crouching</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/FallingState.cs" target="_blank">Falling</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/HangingState.cs" target="_blank">Hanging</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/IdleState.cs" target="_blank">Idle</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/JumpingState.cs" target="_blank">Jumping</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/PullingState.cs" target="_blank">Pulling</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/RisingState.cs" target="_blank">Rising</a>,
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/ThrowState.cs" target="_blank">Throwing</a> and
-            <a href="https://github.com/DaBu-Games/bound-to-chains/blob/main/bound-to-chains/Assets/Scripts/Player/PlayerStates/WalkingState.cs" target="_blank">Walking</a>
-        </p>
-    </div>
-    <div class="row my-3">
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/climbing.png" alt="climbing" class="w-100 pixel-art">
+    <h1>State machine</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-7 col-12">
+            <p>
+                In this project I made my own state machine that I use for the player.
+                Here I can set different transition for every state I have in the state machine.
+                Ever state class from the player inherits from this interface so they can be used in the state machine
+            </p>
         </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/hanging.png" alt="hanging" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/jump.png" alt="jumping" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/throw.png" alt="throwing" class="w-100 pixel-art">
-        </div>
-        <div class="col-4 col-md">
-            <img src="../media/projects/bound-to-chainge/walking.png" alt="walking" class="w-100 pixel-art">
+        <div class="col-lg-5 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public interface IState
+{
+    void OnUpdate();
+    void OnFixedUpdate();
+    void OnEnterState();
+    void OnExitState();
+}
+</code></pre>
         </div>
     </div>
-    <div class="row">
-        <p>
-            I used this state machine to transition from different animations or change physics values of the player.
-            For example if the player is in the falling state increase the gravity so you have more control over the jump.
-        </p>
-    </div>
+    <div class="row mb-4">
+        <div class="col-lg-8 col-12 order-2 order-lg-1">
+<pre><code class="language-csharp">
+public class Transition
+{
+    public readonly IState fromState;
+    public readonly IState toState;
+    private System.Func&lt;bool&gt; condition;
 
+    public Transition(
+        IState fromState, 
+        IState toState, 
+        System.Func&lt;bool&gt; condition)
+    {
+        this.fromState = fromState;
+        this.toState = toState;
+        this.condition = condition;
+    }
+
+    public bool CheckCondition()
+    {
+        return condition();
+    }
+
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-12 order-1 order-lg-2">
+            <p>
+                The state machine uses the transition class to know when to switch from state.
+                The transition class consist of the current state and the state it wants to go to.
+                It also holds a condition that you need to set.
+                This makes it so you only transition to the new state if the condition is true.
+            </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            In the state machine itself it holds the current IState, a list of all transitions and a list of all the transitions of the current state.
+            Every update it checks all the transitions in the currentTransitions list.
+            If any of these transitions are true it calls the switch state function.
+        </p>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-6 col-12">
+            <pre><code class="language-csharp">
+public class StateMachine
+{
+    public IState currentState { get; private set; }
+    private List&lt;Transition&gt; transitions = new List&lt;Transition&gt;();
+    private List&lt;Transition&gt; currentTransitions = new List&lt;Transition&gt;();
+
+    public void OnUpdate()
+    {
+        foreach (var transition in currentTransitions) 
+        {
+           if( transition.CheckCondition())
+               SwitchState( transition.toState );
+        }
+        
+        currentState?.OnUpdate();
+    }
+}
+</code></pre>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-csharp">
+public void SwitchState(IState state)
+{
+    currentState?.OnExitState();
+    currentState = state;
+    if (currentState == null)
+    return;
+    
+    currentTransitions = transitions.FindAll(
+    x => x.fromState == currentState ||
+    x.fromState == null);
+    
+    currentState.OnEnterState();
+    Debug.Log(currentState.ToString());
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            The switch state function checks if the current state is valid or not.
+            If it is it call the OnExit function on the old state and the OnEnter function on the new state.
+            After it updates the current transitions list with all the transitions of the new state.
+        </p>
+    </div>
 </div>
+<div>
+    <h1>Buffer / Coyote Jump</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-12 mb-4">
+            <p>
+                The player also has a buffer and Coyote jump.
+                This means you can press the space bar a little before landing on de ground or a little bit after leaving the ground and still jump.
+                <br>
+                <br>
+                For the coyote jump I keep track when the last time was when the player was on the ground.
+                If the time that has passed since then is smaller than the leave ground buffer time then the player can still jump.
+                <br>
+                <br>
+                For the buffer jump do the same check as the Coyote jump, 
+                but now I check if the time that has passed since you last pressed jump is smaller than the jump input buffer time.
+            </p>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-cs hljs language-csharp">
+private bool CanCoyoteJump()
+{
+    return 
+        Time.time - playerGroundCheck.lastOnGroundTime <= 
+        variables.leaveGroundBufferTime;
+}
 
+private bool IsJumpBufferd()
+{
+    return 
+        Time.time - playerInput.lastPressedJumpTime <= 
+        variables.jumpInputBufferTime
+}
 
+private bool CanPlayerJump()
+{
+    return
+        (playerGroundCheck.isGrounded || CanCoyoteJump()) && 
+        !isJumping && 
+        IsJumpBufferd();
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+            Now the player can jump when the player is not already jumping, CanBufferJump is true, the player is grounded or CanCyoteJump is true.
+        </p>
+    </div>
+</div>
+<div>
+    <h1>Chain physics</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-6 col-12">
+            <p>
+                The chain that connect the player and the ball has its own calculated physic. 
+                For these physic I used the formulae of: Verlet Integration.
+                This formula calculates an objects movement using its current position and previous position.
+                <br>
+                <br>
+                I have a class called ChainSegments. In here I can save the chain segments old and new position. 
+                Then in the GenerateChain Class I have a list of these chain segments. 
+                Now for every segment in this list I calculate the new position using Verlet Integration.
+            </p>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-cs hljs language-csharp">
+private void Simulate()
+{
+    startPoint = this.transform.position;
+    endPoint = GetAnchorPosition();
+    for (int i = 1; i < chainSegmentAmount; i++)
+    {
+        ChainSegment firstSegment = chainSegments[i];
+        Vector2 velocity = firstSegment.newPosition - firstSegment.oldPosition;
+        firstSegment.oldPosition = firstSegment.newPosition;
+        firstSegment.newPosition += velocity;
+        firstSegment.newPosition += gravity * Time.fixedDeltaTime;
+        chainSegments[i] = firstSegment;
+    }
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+            <p>
+                Now I add every segment to a line render.
+                This visualises the chain to the player and makes it show accurate rope / chain physics.
+            </p>
+            <pre><code class="language-cs hljs language-csharp">
+private void UpdateLineRenderer()
+{
+    Vector3[] positions = new Vector3[chainSegments.Count + 1];
+    positions[0] = new Vector3(startPoint.x, startPoint.y, chainOffset);
 
+    for (int i = 0; i < chainSegments.Count; i++)
+    {
+        Vector2 position = chainSegments[i].newPosition;
+        positions[i + 1] = new Vector3(position.x, position.y, chainOffset);
+    }
+
+    lineRenderer.positionCount = chainSegments.Count + 1;
+    lineRenderer.SetPositions(positions);
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-10">
+            <img src="../media/projects/bound-to-chainge/bound-to-chains-rope.gif" alt="rope-physics" class="w-100">
+        </div>
+    </div>
+</div>
