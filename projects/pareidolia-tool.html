@@ -1,0 +1,297 @@
+<div class="row mb-4">
+    <div class="col-12 col-md-6">
+        <h1>Usage</h1>
+        <p>
+            The Pareidolia tool is a drawing tool where you can generate random shapes.
+            This tool is meant to be used to draw out prototype's or think of new concepts.
+            In the tool you can draw, erase and generate random shapes.
+        </p>
+    </div>
+    <div class="col-12 col-md-6 align-self-center text-center justify-content-center">
+        <img src="../media/projects/pareidolia-tool/pareidolia-tool-usage.png" alt="tool-usage-img" class="w-100">
+    </div>
+</div>
+<div class="row mb-4 justify-content-center">
+    <h1>Research</h1>
+    <div class="col-12 mb-3">
+        <p>
+            For this tool I did interviews with artist to see what there minimal requirements where.
+            In these interviews I found out the industries standard of what artist expect from a drawing tool.
+            For example undoing and redoing your lines, change the size of the canvas and showing information through icons instead of text.
+            <br>
+            <br>
+            I also looked at other drawing tools like paint and inkscape for my designs. 
+            My original concept drawing where heavy inspired from these tool as you can see.
+            I eventually choose to not make different drawing layers because of a deadline, but the tool is made in such a way I can always implement this later on.
+        </p>
+    </div>
+    <div class="col-12 col-lg-10">
+        <img src="../media/projects/pareidolia-tool/pareidolia-tool-concept.png" alt="tool-concept-img" class="w-100">
+    </div>
+</div>
+<div class="row mb-4 justify-content-center">
+    <h1>Code structure</h1>
+    <div class="col-12">
+        <p>
+            I started this project making a 
+            <a href="https://raw.githubusercontent.com/DaBu-Games/Tool/refs/heads/development/umltool.svg" target="_blank">
+                UML
+            </a>
+            for the code structure of this project.
+            Here I decide to use 3 different design patterns:
+        </p>
+        <ul>
+            <li>Strategy pattern so I can save the drawing in different formats more easily</li>
+            <li>Command pattern so I can implement the Undo and Redo feature</li>
+            <li>State machine so I can switch from the different states: drawing, erasing and generate</li>
+        </ul>
+    </div>
+    <div class="col-12 col-lg-10">
+        <img src="../media/projects/pareidolia-tool/umltool.svg" alt="tool-concept-img" class="w-100">
+    </div>
+</div>
+<div class="mb-4">
+    <h1>Save & load system</h1>
+    <p>
+        For the save & load system I use the strategy pattern,
+        so I can make a new strategy every time I need to save / load a new file type.
+        <br>
+        <br>
+    </p>
+    <div class="row mb-2">
+        <div class="col-12 col-lg-6 order-2 order-lg-1">
+        <pre><code class="language-cs hljs language-csharp">
+namespace Version1
+{
+    public class JpgLoadStrategy : IFileLoadStrategy
+    {
+        public string FileType => ".jpg";
+        public int Version => 1;
+        public DrawingData LoadFile(string filePath)
+        {
+            if (FileAccess.FileExists(filePath))
+            {
+                Image image = Image.LoadFromFile(filePath);
+            
+                return new DrawingData(image); 
+            }
+            else
+            {
+                GD.Print("file doesn't exist");
+                return null;
+            }
+        }
+    }
+}
+</code></pre>
+        </div>
+        <div class="col-12 col-lg-6 order-1 order-lg-2">
+            <p>
+                I made the IFileLoadStrategy for the different load types and version's.
+                So that for every new version I make for my tool I can differentiate how to load them.
+                This is because if I change how you draw an image you might need to load an image differently then the older versions.
+                Here you can see the JpgLoadStrategy as example.
+            </p>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-lg-6">
+            <p>
+                I made the IFileSaveStrategy interface for the different save types.
+                Now every time I want a new save strategy I add a new class that inherits from this interface.
+                Here you can see the JpgSaveStrategy as example.
+            </p>
+        </div>
+        <div class="col-12 col-lg-6">
+<pre><code class="language-cs hljs language-csharp">
+public class JpgSaveStrategy : IFileSaveStrategy
+{
+    public string FileType => ".jpg";
+    public void SaveFile(string filePath, DrawingData data)
+    {
+        data.GetCurrentDrawingLayer().Image.SaveJpg(filePath);
+    }
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-2 justify-content-center">
+        <div class="col-12">
+            <p>
+                Now everything comes together in the FileStrategyManager class.
+                The FileStrategyManager holds a Dictionary of the different save and load strategies.
+                Here I save the file type as string and then the save strategy or a list of load strategy's for the different versions.
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+<pre><code class="language-cs hljs language-csharp">
+public partial class FileStrategyManager : Node
+{
+    // diffrent file types the user can save
+    private Dictionary&lt;string, IFileSaveStrategy> _saveStrategies = new ();
+    
+    // diffrent file types and tool version the user can load in 
+    private Dictionary&lt;string, List&lt;IFileLoadStrategy&gt;&gt; _loadStrategies = new ();
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-2 justify-content-center">
+        <div class="col-12">
+            <p>
+                Now if I want to save a file I call the SaveFile function in the FileStrategyManager.
+                I give this function the filepath where I want to save the file and the drawing data to fill the file.
+                Now it gets the file type out of the file path and checks if there is a save strategy with this file type.
+                If there is call the SaveFile function on this save strategy.
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+<pre><code class="language-cs hljs language-csharp">
+public void SaveFile(string filePath, DrawingData data)
+{
+    string fileType = System.IO.Path.GetExtension(filePath).ToLower();
+
+    if (!_saveStrategies.TryGetValue(fileType, out IFileSaveStrategy strategy))
+    {
+        GD.PrintErr("No save strategy for: " + fileType);
+        return;
+    }
+    
+    strategy.SaveFile(filePath, data);
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-2 justify-content-center">
+        <div class="col-12">
+            <p>
+                Now if I want to load a file I call the LoadFile function in the FileStrategyManager.
+                I give this function the filepath of the file I want to load.
+                Its gets the filetype the same way as the SaveFile function does by getting it out of the filepath. 
+                Now it checks if there is a load strategy with this file type and the version of this file.
+                If there is call LoadFile function on this load strategy and return the drawing data you get out of this file.
+                For now the file version is always 1 because I have not brought out new version's of the to the tool yet. 
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+<pre><code class="language-cs hljs language-csharp">
+public DrawingData LoadFile(string filePath)
+{
+    string fileType = System.IO.Path.GetExtension(filePath).ToLower();
+    
+    if (!_loadStrategies.TryGetValue(fileType, out List&lt;IFileLoadStrategy&gt; strategies))
+    {
+        GD.PrintErr("No load strategies for: " + fileType);
+        return null;
+    }
+    
+    int version = GetVersion(filePath);
+    
+    IFileLoadStrategy strategy = strategies.FirstOrDefault(s => s.Version == version);
+
+    if (strategy == null)
+    {
+        GD.PrintErr("No load strategy for: " + fileType + " version: " + version);
+        return null;
+    }
+    
+    return strategy.LoadFile(filePath);
+}
+</code></pre>
+        </div>
+    </div>
+</div>
+<div class="mb-4">
+    <div class="row justify-content-center mb-2">
+        <div>
+            <h1>Undo & Redo</h1>
+            <p>
+                I used the command pattern to make the Undo and Redo features.
+                Here I made the ICommand interface that all the different commands inherit.
+                In this interface I have two functions Execute for when you want to redo something and Undo.
+                <br>
+                <br>
+                Here you can see the AddPixelsCommand as example. 
+                Here I hold a reference to the drawing data and a list of all the pixel changes. 
+                The PixelChange holds the pixel, the old color and the new color.
+                On Execute it changes all the pixels to their new color on Redo it changes all the pixel back to their old color.
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+<pre><code class="language-cs hljs language-csharp">
+public class AddPixelsCommand(DrawingData drawingData, List&lt;PixelChange&gt; changes) : ICommand
+{
+    private DrawingData _drawingData = drawingData;
+    private List&lt;PixelChange&gt; _changes = new(changes);
+
+    public void Execute() => _drawingData.GetCurrentDrawingLayer().ChangePixels(_changes, true);
+    public void Undo() => _drawingData.GetCurrentDrawingLayer().ChangePixels(_changes, false);
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-4">
+            <p>
+                The CommandHistory class brings everything together.
+                In this class it holds two stacks of ICommands the undo and redo stacks.
+                A stack is a Last-In, First-Out data structure.
+                This means commands are always added to the top of the stack,
+                and when a command is removed,
+                it is always the most recently added one.
+            </p>
+        </div>
+        <div class="col-12 col-lg-6">
+            <p>
+                You can add a command to the CommandHistory by calling the AddCommand function.
+                Here it adds the new command to the undo stack, and it clears the redo stack.
+                This is because you only want to redo changes until you have added something new to the canvas.
+                <br>
+                <br>
+                You can call the Undo function when you want to undo a ICommand. 
+                Here it checks if the undo stack is not empty.
+                If it's not get the most recently added command to the undo stack and call the Undo function on it. 
+                Now its remove the ICommand from the undo stack and adds it to the redo stack.
+                <br>
+                <br>
+                The Redo function works the exact same as the Undo function, 
+                but it now removes the ICommand from the redo stack and adds it to the undo stack.
+                It also calls the Execute function on the ICommand instead of the Undo function. 
+            </p>
+        </div>
+        <div class="col-12 col-lg-6" >
+<pre><code class="language-cs hljs language-csharp">
+public class CommandHistory
+{
+    private Stack&lt;ICommand&gt; _undoStack = new Stack&lt;ICommand&gt;();
+    private Stack&lt;ICommand&gt; _redoStack = new Stack&lt;ICommand&gt;();
+
+    public void AddCommand(ICommand command)
+    {
+        _undoStack.Push(command);
+        _redoStack.Clear();
+    }
+    
+    public void Undo()
+    {
+        if(_undoStack.Count == 0) 
+            return;
+        
+        ICommand command = _undoStack.Pop();
+        command.Undo();
+        _redoStack.Push(command);
+    }
+
+    public void Redo()
+    {
+        if(_redoStack.Count == 0)
+            return;
+        
+        ICommand command = _redoStack.Pop();
+        command.Execute();
+        _undoStack.Push(command);
+    }
+}
+</code></pre>
+        </div>
+    </div>
+</div>
