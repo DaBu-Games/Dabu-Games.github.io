@@ -8,7 +8,7 @@ const angles = {
 const pages = {
     home: "index.html",
     projects: "projects.html",
-    cv: "cv.html",
+    cv: "",
     contact: "contact.html"
 };
 
@@ -227,10 +227,22 @@ document.addEventListener("DOMContentLoaded", () => {
     function goToNextPage()
     {
         if(selectedPage && selectedPage !== currentPage) {
-            console.log(selectedPage);
-            window.location.href = pages[selectedPage];
+            if(selectedPage === 'cv'){
+                downloadCV()
+            } else{
+                window.location.href = pages[selectedPage];
+            }
         }
 
         selectedPage = '';  
+    }
+
+    function downloadCV() {
+        const link = document.createElement("a");
+        link.href = "../media/cv/Daan-Buitelaar-CV.pdf";
+        link.download = "Daan-Buitelaar-CV.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 });
