@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!project) {
             project = projectData.projects[0];
         }
-
+        
+        document.title = project.title;
         document.getElementById('project-title').textContent = project.title;
         document.getElementById('project-info').textContent = project.info;
         document.getElementById('project-img').src = `../media/projects/${project.slug}/${project.img}`;
