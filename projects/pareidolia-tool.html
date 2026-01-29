@@ -51,9 +51,9 @@
     </div>
 </div>
 <div class="mb-4">
-    <h1>File save & load</h1>
+    <h1>Save & load system</h1>
     <p>
-        For the file save & load system I use the strategy pattern,
+        For the save & load system I use the strategy pattern,
         so I can make a new strategy every time I need to save / load a new file type.
         <br>
         <br>
@@ -195,6 +195,101 @@ public DrawingData LoadFile(string filePath)
     }
     
     return strategy.LoadFile(filePath);
+}
+</code></pre>
+        </div>
+    </div>
+</div>
+<div class="mb-4">
+    <div class="row justify-content-center mb-2">
+        <div>
+            <h1>Undo & Redo</h1>
+            <p>
+                I used the command pattern to make the Undo and Redo features.
+                Here I made the ICommand interface that all the different commands inherit.
+                In this interface I have two functions Execute for when you want to redo something and Undo.
+                <br>
+                <br>
+                Here you can see the AddPixelsCommand as example. 
+                Here I hold a reference to the drawing data and a list of all the pixel changes. 
+                The PixelChange holds the pixel, the old color and the new color.
+                On Execute it changes all the pixels to their new color on Redo it changes all the pixel back to their old color.
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+<pre><code class="language-cs hljs language-csharp">
+public class AddPixelsCommand(DrawingData drawingData, List&lt;PixelChange&gt; changes) : ICommand
+{
+    private DrawingData _drawingData = drawingData;
+    private List&lt;PixelChange&gt; _changes = new(changes);
+
+    public void Execute() => _drawingData.GetCurrentDrawingLayer().ChangePixels(_changes, true);
+    public void Undo() => _drawingData.GetCurrentDrawingLayer().ChangePixels(_changes, false);
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-4">
+            <p>
+                The CommandHistory class brings everything together.
+                In this class it holds two stacks of ICommands the undo and redo stacks.
+                A stack is a Last-In, First-Out data structure.
+                This means commands are always added to the top of the stack,
+                and when a command is removed,
+                it is always the most recently added one.
+            </p>
+        </div>
+        <div class="col-12 col-lg-6">
+            <p>
+                You can add a command to the CommandHistory by calling the AddCommand function.
+                Here it adds the new command to the undo stack, and it clears the redo stack.
+                This is because you only want to redo changes until you have added something new to the canvas.
+                <br>
+                <br>
+                You can call the Undo function when you want to undo a ICommand. 
+                Here it checks if the undo stack is not empty.
+                If it's not get the most recently added command to the undo stack and call the Undo function on it. 
+                Now its remove the ICommand from the undo stack and adds it to the redo stack.
+                <br>
+                <br>
+                The Redo function works the exact same as the Undo function, 
+                but it now removes the ICommand from the redo stack and adds it to the undo stack.
+                It also calls the Execute function on the ICommand instead of the Undo function. 
+            </p>
+        </div>
+        <div class="col-12 col-lg-6" >
+<pre><code class="language-cs hljs language-csharp">
+public class CommandHistory
+{
+    private Stack&lt;ICommand&gt; _undoStack = new Stack&lt;ICommand&gt;();
+    private Stack&lt;ICommand&gt; _redoStack = new Stack&lt;ICommand&gt;();
+
+    public void AddCommand(ICommand command)
+    {
+        _undoStack.Push(command);
+        _redoStack.Clear();
+    }
+    
+    public void Undo()
+    {
+        if(_undoStack.Count == 0) 
+            return;
+        
+        ICommand command = _undoStack.Pop();
+        command.Undo();
+        _redoStack.Push(command);
+    }
+
+    public void Redo()
+    {
+        if(_redoStack.Count == 0)
+            return;
+        
+        ICommand command = _redoStack.Pop();
+        command.Execute();
+        _undoStack.Push(command);
+    }
 }
 </code></pre>
         </div>
