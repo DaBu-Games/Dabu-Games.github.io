@@ -1,6 +1,17 @@
 {
   "projects":[
     {
+      "slug": "pareidolia-tool",
+      "title": "Pareidolia Tool",
+      "info": "2D Godot paint tool",
+      "img": "pareidolia-tool-cover.png",
+      "github": "https://github.com/DaBu-Games/Tool",
+      "itchio": "https://dabugames.itch.io/pareidoliatool",
+      "timeframe": "3 months",
+      "year": "2025-2026",
+      "team": "Solo project"
+    },
+    {
       "slug": "bound-to-chainge",
       "title": "Bound to Chainge",
       "info": "2D unity platformer",
