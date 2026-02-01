@@ -1,0 +1,211 @@
+<div class="row mb-4">
+    <div class="col-12 col-md-6">
+        <h1>Gameplay</h1>
+        <p>
+
+        </p>
+    </div>
+    <div class="col-12 col-md-6 align-self-center text-center justify-content-center">
+        <img src="../media/projects/bound-to-chainge/bound-to-chainge-game-play.png" alt="game-play-img" class="w-100">
+    </div>
+</div>
+<div class="row mb-4">
+    <h1>Research</h1>
+    <p>
+        
+    </p>
+</div>
+<div>
+    <h1>Project1</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-7 col-12">
+            <p>
+               
+            </p>
+        </div>
+        <div class="col-lg-5 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public interface IState
+{
+    void OnUpdate();
+    void OnFixedUpdate();
+    void OnEnterState();
+    void OnExitState();
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-8 col-12 order-2 order-lg-1">
+<pre><code class="language-csharp">
+public class Transition
+{
+    public readonly IState fromState;
+    public readonly IState toState;
+    private System.Func&lt;bool&gt; condition;
+
+    public Transition(
+        IState fromState, 
+        IState toState, 
+        System.Func&lt;bool&gt; condition)
+    {
+        this.fromState = fromState;
+        this.toState = toState;
+        this.condition = condition;
+    }
+
+    public bool CheckCondition()
+    {
+        return condition();
+    }
+
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-12 order-1 order-lg-2">
+            <p>
+            </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+        </p>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-6 col-12">
+            <pre><code class="language-csharp">
+public class StateMachine
+{
+    public IState currentState { get; private set; }
+    private List&lt;Transition&gt; transitions = new List&lt;Transition&gt;();
+    private List&lt;Transition&gt; currentTransitions = new List&lt;Transition&gt;();
+
+    public void OnUpdate()
+    {
+        foreach (var transition in currentTransitions) 
+        {
+           if( transition.CheckCondition())
+               SwitchState( transition.toState );
+        }
+        
+        currentState?.OnUpdate();
+    }
+}
+</code></pre>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-csharp">
+public void SwitchState(IState state)
+{
+    currentState?.OnExitState();
+    currentState = state;
+    if (currentState == null)
+    return;
+    
+    currentTransitions = transitions.FindAll(
+    x => x.fromState == currentState ||
+    x.fromState == null);
+    
+    currentState.OnEnterState();
+    Debug.Log(currentState.ToString());
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+        </p>
+    </div>
+</div>
+<div>
+    <h1>Code 2</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-12 mb-4">
+            <p>
+            </p>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-cs hljs language-csharp">
+private bool CanCoyoteJump()
+{
+    return 
+        Time.time - playerGroundCheck.lastOnGroundTime <= 
+        variables.leaveGroundBufferTime;
+}
+
+private bool IsJumpBufferd()
+{
+    return 
+        Time.time - playerInput.lastPressedJumpTime <= 
+        variables.jumpInputBufferTime
+}
+
+private bool CanPlayerJump()
+{
+    return
+        (playerGroundCheck.isGrounded || CanCoyoteJump()) && 
+        !isJumping && 
+        IsJumpBufferd();
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <p>
+           
+        </p>
+    </div>
+</div>
+<div>
+    <h1>Code 3</h1>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-6 col-12">
+            <p>
+            </p>
+        </div>
+        <div class="col-lg-6 col-12">
+<pre><code class="language-cs hljs language-csharp">
+private void Simulate()
+{
+    startPoint = this.transform.position;
+    endPoint = GetAnchorPosition();
+    for (int i = 1; i < chainSegmentAmount; i++)
+    {
+        ChainSegment firstSegment = chainSegments[i];
+        Vector2 velocity = firstSegment.newPosition - firstSegment.oldPosition;
+        firstSegment.oldPosition = firstSegment.newPosition;
+        firstSegment.newPosition += velocity;
+        firstSegment.newPosition += gravity * Time.fixedDeltaTime;
+        chainSegments[i] = firstSegment;
+    }
+}
+</code></pre>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+            <p>
+                
+            </p>
+            <pre><code class="language-cs hljs language-csharp">
+private void UpdateLineRenderer()
+{
+    Vector3[] positions = new Vector3[chainSegments.Count + 1];
+    positions[0] = new Vector3(startPoint.x, startPoint.y, chainOffset);
+
+    for (int i = 0; i < chainSegments.Count; i++)
+    {
+        Vector2 position = chainSegments[i].newPosition;
+        positions[i + 1] = new Vector3(position.x, position.y, chainOffset);
+    }
+
+    lineRenderer.positionCount = chainSegments.Count + 1;
+    lineRenderer.SetPositions(positions);
+}
+</code></pre>
+        </div>
+        <div class="col-lg-4 col-10">
+            <img src="../media/projects/bound-to-chainge/bound-to-chains-rope.gif" alt="rope-physics" class="w-100">
+        </div>
+    </div>
+</div>
