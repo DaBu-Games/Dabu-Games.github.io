@@ -2,68 +2,121 @@
     <div class="col-12 col-md-6">
         <h1>Gameplay</h1>
         <p>
-
+            Stroke of the blade is a VR game where you can bend elements using a katana.
+            This game is a proof of concept and see how I would make the bending mechanic. 
+            Right now you can bend four different elements: water, earth, fire and wood.
+            You can use these elements to hit enemies or other elements that are being fired at you.
         </p>
     </div>
     <div class="col-12 col-md-6 align-self-center text-center justify-content-center">
-        <img src="../media/projects/bound-to-chainge/bound-to-chainge-game-play.png" alt="game-play-img" class="w-100">
+        <img src="../media/projects/stroke-of-the-blade/stroke-of-the-blade-bend.gif" alt="game-play-gif" class="w-100 p-3">
     </div>
 </div>
-<div class="row mb-4">
+<div class="mb-4">
     <h1>Research</h1>
-    <p>
-        
-    </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+            <p>
+                For this project is researched the Chinese philosophy: Wu-xing translating to five elements.
+                The five elements in this philosophy are metal, water, fire, earth and wood.
+                Here chose four of the five element to bend in my game.
+                The exception was metal because the katana is already made from it.
+                <br>
+                <br>
+                I also use this philosophy to pick the different colors for the elements and their weaknesses.
+                Here you can see the different stage of Wu-xing and how they are connected to each other.
+            </p>
+        </div>
+        <div class="col-lg-4 col-md-6 col-8">
+                <img src="../media/projects/stroke-of-the-blade/stroke-of-the-blade-wuxing.png" al="wuxing-img" class="w-100 p-3">
+        </div>
+    </div>
 </div>
 <div>
-    <h1>Project1</h1>
+    <h1>Slashing</h1>
     <div class="row justify-content-center mb-4">
         <div class="col-lg-7 col-12">
             <p>
-               
+               For the slashing I used the state machine I made in
+                <a href="bound-to-chainge.html">bound to chainge</a> to make a state machine for the katana.
+                Here I made four different states idle, sheathed, sheathing and slashing.
+                Now I make transitions between these different states to know in what state the katana is currently in.
+                <br>
+                <br>
+                Now if all the functions are true in the transition from idle to slashing it switches to the slashing state.
+                If any of the function are false while in the idle state it transitions to the idle state. 
+                The only way to get in to the slashing state is through this transition. 
             </p>
         </div>
         <div class="col-lg-5 col-12">
 <pre><code class="language-cs hljs language-csharp">
-public interface IState
-{
-    void OnUpdate();
-    void OnFixedUpdate();
-    void OnEnterState();
-    void OnExitState();
-}
+_sm.AddTransition(new Transition(
+    _idle,
+    _slashing,
+    () => kM.Katana.HasElement() && 
+    _slashing.IsMovingForward() && 
+    _slashing.IsAboveSpeed()
+));
+    
+_sm.AddTransition(new Transition(
+    _slashing,
+    _idle,
+    () => !kM.Katana.HasElement() || 
+        !_slashing.IsAboveSpeed() || 
+        !_slashing.IsMovingForward() 
+));
+            
 </code></pre>
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-lg-8 col-12 order-2 order-lg-1">
+        <div class="col-lg-7 col-12 order-2 order-lg-1">
 <pre><code class="language-csharp">
-public class Transition
+public class Katana : BaseController
 {
-    public readonly IState fromState;
-    public readonly IState toState;
-    private System.Func&lt;bool&gt; condition;
+    public bool HasElement() => Element != null;
+}
 
-    public Transition(
-        IState fromState, 
-        IState toState, 
-        System.Func&lt;bool&gt; condition)
+public class SlashingState : IState
+{
+    public bool IsAboveSpeed()
     {
-        this.fromState = fromState;
-        this.toState = toState;
-        this.condition = condition;
+        return _kM.Katana.TipVelocity.magnitude >= _minSlashSpeed;
     }
-
-    public bool CheckCondition()
+    
+    public bool IsMovingForward()
     {
-        return condition();
+        Vector3 velocityDir = _kM.Katana.TipVelocity.normalized;
+        Vector3 bladeForward = -_kM.Katana.transform.up;
+    
+        float dot = Vector3.Dot(velocityDir, bladeForward);
+    
+        return dot > _minForwardDot;
     }
-
 }
 </code></pre>
         </div>
-        <div class="col-lg-4 col-12 order-1 order-lg-2">
+        <div class="col-lg-5 col-12 order-1 order-lg-2">
             <p>
+                The hasElement is a function in the
+                <a href="https://github.com/DaBu-Games/StrokeOfTheBlade/blob/Development/StrokeOfTheBlade/Assets/Scripts/Katana/Katana.cs" target="_blank">
+                    katana class
+                </a>
+                that checks if the katana currently has an element.
+                <br>
+                <br>
+                The IsAboveSpeed is a function in the
+                <a href="https://github.com/DaBu-Games/StrokeOfTheBlade/blob/Development/StrokeOfTheBlade/Assets/Scripts/StateMachine/States/SlashingState.cs" target="_blank">
+                    SlashingState class
+                </a>
+                that checks if the blade is moving above a certain speed
+                <br>
+                <br>
+                The IsMovingForward is a function in the
+                <a href="https://github.com/DaBu-Games/StrokeOfTheBlade/blob/Development/StrokeOfTheBlade/Assets/Scripts/StateMachine/States/SlashingState.cs" target="_blank">
+                    SlashingState class
+                </a>
+                that checks if the blade is moving forward
             </p>
         </div>
     </div>
