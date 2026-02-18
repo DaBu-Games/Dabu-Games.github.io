@@ -1,6 +1,17 @@
 {
   "projects":[
     {
+      "slug": "stroke-of-the-blade",
+      "title": "Stroke of the blade",
+      "info": "3D unity VR",
+      "img": "stroke-of-the-blade-cover.png",
+      "github": "https://github.com/DaBu-Games/StrokeOfTheBlade",
+      "itchio": "https://dabugames.itch.io/stroke-of-the-blade",
+      "timeframe": "3 months",
+      "year": "2025-2026",
+      "team": "Solo project"
+    },
+    {
       "slug": "pareidolia-tool",
       "title": "Pareidolia Tool",
       "info": "2D Godot paint tool",
