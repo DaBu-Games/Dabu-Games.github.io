@@ -121,10 +121,6 @@ public class SlashingState : IState
         </div>
     </div>
     <div class="row mb-4">
-        <p>
-        </p>
-    </div>
-    <div class="row mb-4">
         <div class="col-lg-6 col-12">
             <pre><code class="language-csharp">
 public class StateMachine
@@ -165,100 +161,91 @@ public void SwitchState(IState state)
 </code></pre>
         </div>
     </div>
-    <div class="row mb-4">
-        <p>
-        </p>
-    </div>
 </div>
 <div>
-    <h1>Code 2</h1>
+    <h1>Sheathing</h1>
     <div class="row justify-content-center">
-        <div class="col-lg-6 col-12 mb-4">
+        <div class="col-12 mb-4">
             <p>
+                To make the blade sheath and unsheathe I made my own animation in unity.
+                Here I make the katana a child of the sheath when entering the sheathing state.
+                Now i check how far the controller of the sheath and the controller of the katana are from each other.
+                <br>
+                <br>
+                I check this distance with the length of the blade itself this gives me the percentage of how far in the blade should be in the sheath.
+                This percentage then gets used to decide how far we are in the animation giving this smooth feeling of sheathing and unsheathing.
+                While still giving the player control of the blade.
             </p>
         </div>
-        <div class="col-lg-6 col-12">
-<pre><code class="language-cs hljs language-csharp">
-private bool CanCoyoteJump()
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-12 mb-4">
+            <img src="../media/projects/stroke-of-the-blade/sheathing-animation-screenshot.png" alt="sheathing-animation-screenshot" class="w-100">
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+            <img src="../media/projects/stroke-of-the-blade/sheathing-gif.gif" alt="sheathing-gif" class="w-100">
+        </div>
+    </div>
+    <div class="row mb-4 justify-content-center">
+        <div class="col-12 col-lg-10">
+<pre><code class="language-csharp">
+private void SetSheathAmount()
 {
-    return 
-        Time.time - playerGroundCheck.lastOnGroundTime <= 
-        variables.leaveGroundBufferTime;
-}
-
-private bool IsJumpBufferd()
-{
-    return 
-        Time.time - playerInput.lastPressedJumpTime <= 
-        variables.jumpInputBufferTime
-}
-
-private bool CanPlayerJump()
-{
-    return
-        (playerGroundCheck.isGrounded || CanCoyoteJump()) && 
-        !isJumping && 
-        IsJumpBufferd();
+    float distance = Vector3.Distance(_kM.Katana.HandPosition, _kM.Sheath.HandPosition);
+    
+    distance = Mathf.Clamp(distance, _minDistance, _maxDistance);
+    
+    _sheathAmount = Mathf.InverseLerp(_maxDistance, _minDistance, distance);
+    
+    _animation[_sheathClip.name].time = _sheathClip.length * _sheathAmount;
+    _animation.Sample(); 
 }
 </code></pre>
         </div>
     </div>
-    <div class="row mb-4">
-        <p>
-           
-        </p>
-    </div>
 </div>
 <div>
-    <h1>Code 3</h1>
+    <h1>Elemental projectile</h1>
     <div class="row justify-content-center mb-4">
         <div class="col-lg-6 col-12">
             <p>
+                When a projectile gets spawned it first gets the middle point of all the points the slash is made of.
+                Then we use this point to get the direction of the projectile by getting the direction between the players position and this middle point.
+                <br>
+                <br>
+                Before shooting the projectile it also uses this middle point to check if there are any enemies in front of it.
+                If there is the projectile curves to this enemy over time.
             </p>
         </div>
         <div class="col-lg-6 col-12">
-<pre><code class="language-cs hljs language-csharp">
-private void Simulate()
-{
-    startPoint = this.transform.position;
-    endPoint = GetAnchorPosition();
-    for (int i = 1; i < chainSegmentAmount; i++)
-    {
-        ChainSegment firstSegment = chainSegments[i];
-        Vector2 velocity = firstSegment.newPosition - firstSegment.oldPosition;
-        firstSegment.oldPosition = firstSegment.newPosition;
-        firstSegment.newPosition += velocity;
-        firstSegment.newPosition += gravity * Time.fixedDeltaTime;
-        chainSegments[i] = firstSegment;
-    }
-}
-</code></pre>
+            <img src="../media/projects/stroke-of-the-blade/projectile-gif.gif" alt="projectile-gif" class="w-100">
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-12">
-            <p>
-                
-            </p>
-            <pre><code class="language-cs hljs language-csharp">
-private void UpdateLineRenderer()
+        <div class="col-lg-10 col-12">
+<pre><code class="language-cs hljs language-csharp">
+public void SpawnElement(float speed, List&lt;Vector3> points)
 {
-    Vector3[] positions = new Vector3[chainSegments.Count + 1];
-    positions[0] = new Vector3(startPoint.x, startPoint.y, chainOffset);
+        Vector3 start = points[0];
+        Vector3 end = points[^1];
+        Vector3 middlePoint = GetPhysicalMiddle(points);
+        
+        Vector3 direction = (middlePoint - _player.position).normalized;
+        direction.y = 0f;
+        
+        List&lt;Vector3&gt; newPoints = new List&lt;Vector3&gt;();
+        newPoints.Add(start);
+        newPoints.Add(middlePoint);
+        newPoints.Add(end);
 
-    for (int i = 0; i < chainSegments.Count; i++)
-    {
-        Vector2 position = chainSegments[i].newPosition;
-        positions[i + 1] = new Vector3(position.x, position.y, chainOffset);
-    }
+        Quaternion rotation = Quaternion.LookRotation(direction);
 
-    lineRenderer.positionCount = chainSegments.Count + 1;
-    lineRenderer.SetPositions(positions);
+        Transform target = _colliderDetection.GetClosestCollider(middlePoint, direction);
+        
+        GameObject slash = Instantiate(_elementPrefab, middlePoint, rotation);
+        slash.GetComponent&lt;ElementalProjectile()&gt;.Initialize(Element, speed, newPoints, target);
 }
 </code></pre>
-        </div>
-        <div class="col-lg-4 col-10">
-            <img src="../media/projects/bound-to-chainge/bound-to-chains-rope.gif" alt="rope-physics" class="w-100">
         </div>
     </div>
 </div>
