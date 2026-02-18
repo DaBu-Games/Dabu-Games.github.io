@@ -8,7 +8,7 @@
         </p>
     </div>
     <div class="col-12 col-md-6 align-self-center text-center justify-content-center">
-        <img src="../media/projects/pareidolia-tool/pareidolia-tool-usage.png" alt="tool-usage-img" class="w-100">
+        <img src="../media/projects/pareidolia-tool/usage-gif.gif" alt="tool-usage-gif" class="w-100">
     </div>
 </div>
 <div class="row mb-4 justify-content-center">
@@ -52,12 +52,17 @@
 </div>
 <div class="mb-4">
     <h1>Save & load system</h1>
-    <p>
-        For the save & load system I use the strategy pattern,
-        so I can make a new strategy every time I need to save / load a new file type.
-        <br>
-        <br>
-    </p>
+    <div class="row mb-4 justify-content-center">
+        <div class="col-12">
+            <p>
+                For the save & load system I use the strategy pattern,
+                so I can make a new strategy every time I need to save / load a new file type.
+            </p>
+        </div>
+        <div class="col-12 col-lg-10">
+            <img src="../media/projects/pareidolia-tool/save-load-gif.gif" alt="save-load-gif" class="w-100">
+        </div>
+    </div>
     <div class="row mb-2">
         <div class="col-12 col-lg-6 order-2 order-lg-1">
         <pre><code class="language-cs hljs language-csharp">
@@ -202,16 +207,23 @@ public DrawingData LoadFile(string filePath)
 </div>
 <div class="mb-4">
     <div class="row justify-content-center mb-2">
-        <div>
-            <h1>Undo & Redo</h1>
+        <h1>Undo & Redo</h1>
+        <div class="row mb-4 justify-content-center">
+            <div class="col-12">
+                <p>
+                    I used the command pattern to make the Undo and Redo features.
+                    Here I made the ICommand interface that all the different commands inherit.
+                    In this interface I have two functions Execute for when you want to redo something and Undo.
+                </p>
+            </div>
+            <div class="col-12 col-lg-10">
+                <img src="../media/projects/pareidolia-tool/unde-redo-gif.gif" alt="undp-redo-gif" class="w-100">
+            </div>
+        </div>
+        <div class="row">
             <p>
-                I used the command pattern to make the Undo and Redo features.
-                Here I made the ICommand interface that all the different commands inherit.
-                In this interface I have two functions Execute for when you want to redo something and Undo.
-                <br>
-                <br>
-                Here you can see the AddPixelsCommand as example. 
-                Here I hold a reference to the drawing data and a list of all the pixel changes. 
+                Here you can see the AddPixelsCommand as example.
+                Here I hold a reference to the drawing data and a list of all the pixel changes.
                 The PixelChange holds the pixel, the old color and the new color.
                 On Execute it changes all the pixels to their new color on Redo it changes all the pixel back to their old color.
             </p>
