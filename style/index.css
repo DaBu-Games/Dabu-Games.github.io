@@ -36,6 +36,10 @@
     margin: 0 auto;
 }
 
+.time-line > svg > tspan{
+    text-decoration: underline;
+}
+
 [id$="-star"] > path {
     transition: all 0.5s ease-in-out;
 }
