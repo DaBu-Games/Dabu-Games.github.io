@@ -1,7 +1,16 @@
 var projectData;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    
     var projectContainer = document.getElementById('projects-container');
+    var styleClass = "col-12 col-sm-6 col-md-4 p-3";
+    var showAllProjects = true;
+    
+    if (projectContainer === null) {
+        projectContainer = document.getElementById('home-projects-container');
+        styleClass = "col-8 col-sm-4 p-2";
+        showAllProjects = false;
+    }
 
     try {
         const response = await fetch('script/projects.json');
@@ -15,7 +24,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetch("../media/header/projects-cloud.svg")
         .then(res => res.text())
         .then(svg => {
-            for (const project of projectData.projects) {
+
+            const projectsToShow = showAllProjects ? projectData.projects : projectData.projects.slice(0, 3);
+            
+            for (const project of projectsToShow) {
                 
                 const parser = new DOMParser();
                 const svgDoc = parser.parseFromString(svg, "image/svg+xml");
@@ -34,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 svgEl.dataset.slug = project.slug;
                 
                 const col = document.createElement("div");
-                col.className = "col-12 col-sm-6 col-md-4 p-4";
+                col.className = styleClass;
 
                 col.appendChild(svgEl.cloneNode(true));
                 

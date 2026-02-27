@@ -1,0 +1,20 @@
+#cloud-border{
+    transition: all 0.5s ease-in-out;
+}
+
+#project-cloud-box{
+    width: 100%;
+    height: 100%;
+    text-shadow: none;
+    text-align: center;
+}
+
+#project-cloud-title, #project-cloud-info{
+    pointer-events: none;
+}
+
+#project-cloud {
+    width: 100%;
+    padding: 1%;
+    height: auto;
+}

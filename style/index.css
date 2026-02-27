@@ -1,6 +1,7 @@
 @import "values.css";
 @import "navWheel.css";
 @import "header.css";
+@import "projectsCloud.css";
 
 .gradient-border{
     display: inline-block;
