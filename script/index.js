@@ -47,6 +47,11 @@ function SetStars(){
 
     stars.forEach(star => {
         const firstPath = star.querySelector('path');
+        const text = star.querySelectorAll('tspan')
+        
+        for (let i = 0; i < text.length; i++) {
+            text[i].setAttribute("text-decoration", "underline");
+        }
         
         star.addEventListener('mouseenter', (event) => {
             const id = star.getAttribute("id");
