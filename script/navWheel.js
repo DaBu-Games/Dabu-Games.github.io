@@ -9,7 +9,7 @@ const pages = {
     home: "index.html",
     projects: "projects.html",
     cv: "",
-    contact: "contact.html"
+    contact: "index.html"
 };
 
 let arrow;
@@ -229,7 +229,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if(selectedPage && selectedPage !== currentPage) {
             if(selectedPage === 'cv'){
                 downloadCV()
-            } else{
+            }
+            else if(selectedPage === 'contact') 
+            {
+                console.log(currentPage);
+                if(currentPage === "home"){
+                    document.getElementById('contact-container').scrollIntoView({ behavior: 'smooth' });
+                }else{
+                    sessionStorage.setItem('scrollToContact', 'true');
+                    window.location.href = "index.html";
+                }
+            }
+            else{
                 window.location.href = pages[selectedPage];
             }
         }

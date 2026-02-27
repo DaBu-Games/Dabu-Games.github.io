@@ -82,4 +82,5 @@ a:hover{
 
 html{
     scrollbar-color: var(--bs-secondary) var(--bs-primary);
+    scroll-behavior: smooth;
 }

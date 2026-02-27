@@ -246,4 +246,15 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Error loading timeline JSON:', error);
     }
     CheckAndLoadSVG();
+
+    if(sessionStorage.getItem('scrollToContact') === 'true') {
+        const contactSection = document.getElementById('contact-container');
+        if(contactSection){
+            setTimeout(() => {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        // Remove the flag so it doesn’t scroll next time
+        sessionStorage.removeItem('scrollToContact');
+    }
 });
