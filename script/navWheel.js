@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             
             hitbox.addEventListener("mousedown", (e) => {
+                e.preventDefault();
                 if (wheelOpenBy) return;
                 button.style.opacity = 1;
                 wheelOpenBy = 'mouse';
@@ -105,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             
             hitbox.addEventListener("touchstart", (e) => {
+                e.preventDefault();
                 if (wheelOpenBy) return;
                 button.style.opacity = 1;
                 wheelOpenBy = 'touch';
